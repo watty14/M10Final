@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WALLT</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_login_or_sign_up">LoginOrSignUpActivity</string>
+    <string name="login_button_label">LOG IN</string>
+    <string name="signup_button_label">SIGN UP</string>
+    <string name="logo">Logo</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="password_hint">Password</string>
+    <string name="username_hint">Username</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_section1">ACCOUNTS</string>
+    <string name="title_section2">REPORTS</string>
+    <string name="title_section3">SETTINGS</string>
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_account_fragment">AccountFragment</string>
+    <string name="addAccount_button_label">ADD ACCOUNT</string>
+    <string name="refresh_button_label">REFRESH</string>
+    <string name="logout_button_label">LOGOUT</string>
+    <string name="deposit_button_label">DEPOSIT</string>
+    <string name="withdraw_button_label">WITHDRAW</string>
+    <string name="accountnumber">Account Number:</string>
+    <string name="bankname">Bank Name:</string>
+    <string name="balance">Balance:</string>
+    <string name="createaccount_button_label">CREATE ACCOUNT</string>
+    <string name="transactionhistory_button_label">TRANSACTION HISTORY</string>
+    <string name="bankname_hint">Bank Name</string>
+    <string name="accountnumber_hint">Account Number</string>
+    <string name="balance_hint">Balance</string>
+    <string name="amount_hint">Amount</string>
+    <string name="title_activity_reports">ReportsActivity</string>
+    <string name="title_activity_reports_fragment">ReportsFragment</string>
+    <string name="title_activity_settings_fragment">SettingsFragment</string>
+    <string name="title_activity_add_account">AddAccountActivity</string>
+    <string name="title_activity_transaction">TransactionActivity</string>
+    <string name="title_activity_transaction_history">TransactionHistoryActivity</string>
+
+</resources>

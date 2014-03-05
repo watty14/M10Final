@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TransactionActivity" >
+
+    <TextView
+        android:id="@+id/bankname_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="27dp"
+        android:text="@string/bankname" />
+    
+    <TextView
+        android:id="@+id/balance_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/accountnumber_text"
+        android:layout_marginTop="32dp"
+        android:text="@string/balance" />
+
+    <EditText
+        android:id="@+id/amount_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/deposit_button"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/amount_hint"
+        android:inputType="number" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/deposit_button"
+        android:layout_centerHorizontal="true"
+        android:visibility="invisible" />
+
+    <TextView
+        android:id="@+id/accountnumber_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/bankname_text"
+        android:layout_marginTop="36dp"
+        android:text="@string/accountnumber" />
+
+    <Button
+        android:id="@+id/deposit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:text="@string/deposit_button_label" />
+
+    <Button
+        android:id="@+id/withdraw_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/deposit_button"
+        android:text="@string/withdraw_button_label" />
+    
+    <Button
+        android:id="@+id/transactionhistory_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/withdraw_button"
+        android:text="@string/transactionhistory_button_label" />
+
+</RelativeLayout>
