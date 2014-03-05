@@ -47,6 +47,12 @@ public class AccountFragment extends ListFragment {
 	}
 	
 	@Override
+	public void onResume() {
+		super.onResume();
+		new AsyncTaskGetAccounts().execute();
+	}
+	
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		BankAccount desired = accounts.get(position);
 		Intent i = new Intent(accountView.getContext(), TransactionActivity.class);
