@@ -13,13 +13,13 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class ServerUtility {
-	
+
 	//Table names
 	public static final String TABLE_USER = "User";
 	public static final String TABLE_OWNER = "AccountOwners";
 	public static final String TABLE_BANKACCOUNT = "BankAccount";
 	public static final String TABLE_TRANSACTIONS = "Transactions";
-	
+
 	//Column names
 	public static final String COLUMN_ID = "objectId";
 	public static final String COLUMN_USERNAME = "username";
@@ -30,7 +30,7 @@ public class ServerUtility {
 	public static final String COLUMN_TRANSACTIONS = "transactions";
 	public static final String COLUMN_AMOUNT = "amount";
 	public static final String COLUMN_TRANSACTIONTYPE = "transactiontype";
-	
+
 	public static Boolean logInUser(String username, String password) {
 		ParseUser user = null;
 		try {
@@ -40,7 +40,7 @@ public class ServerUtility {
 		}
 		return user != null;
 	}
-	
+
 	public static boolean signUpUser(String username, String password) {
 		ParseUser user = new ParseUser();
 		user.setUsername(username);
@@ -55,7 +55,12 @@ public class ServerUtility {
 		}
 		return created;
 	}
-	
+/*
+    private static ParseObject queryObject(String key, String value,
+            String table) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
+        query.
+*/
 	private static void addOwner(String username) {
 		ParseObject owner = new ParseObject(TABLE_OWNER);
 		owner.put(COLUMN_USERNAME, username);
@@ -65,21 +70,21 @@ public class ServerUtility {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static ArrayList<BankAccount> getBankAccounts() {
 		String username = ParseUser.getCurrentUser().getUsername();
 		String[] references = getBankAccountReferences(username);
 		ArrayList<BankAccount> list = null;
 		if (references != null) {
-			list = getBankAccountsHelper(references);
+			list = (ArrayList<BankAccount>) getBankAccountsHelper(references);
 		}
 		return list;
 	}
-	
+
 	private static String[] getBankAccountReferences(String username) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_OWNER);
 		query.whereEqualTo(COLUMN_USERNAME, username);
-		JSONArray jsonReferences = null; 
+		JSONArray jsonReferences = null;
 		try {
 			jsonReferences = query.getFirst().getJSONArray(COLUMN_BANKACCOUNTS);
 		} catch (ParseException e1) {
@@ -98,11 +103,11 @@ public class ServerUtility {
 		}
 		return references;
 	}
-	
-	private static ArrayList<BankAccount> getBankAccountsHelper(String[] linkReferences) {
+
+	private static List<BankAccount> getBankAccountsHelper(String[] linkReferences) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_BANKACCOUNT);
 		query.whereContainedIn(COLUMN_ID, Arrays.asList(linkReferences));
-		List<ParseObject> results = null; 
+		List<ParseObject> results = null;
 		try {
 			results = query.find();
 		} catch (ParseException e1) {
@@ -132,7 +137,7 @@ public class ServerUtility {
 		}
 		return list;
 	}
-	
+
 	public static boolean createNewBankAccount(BankAccount account) {
 		boolean created = false;
 		String username = ParseUser.getCurrentUser().getUsername();
@@ -146,7 +151,7 @@ public class ServerUtility {
 		}
 		return created;
 	}
-	
+
 	private static ParseObject getOwner(String username) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_OWNER);
 		query.whereEqualTo(COLUMN_USERNAME, username);
@@ -159,7 +164,8 @@ public class ServerUtility {
 		return reference;
 	}
 	
-	
+
+
 	private static String createAccount(BankAccount account) {
 		ParseObject bankAccount = new ParseObject(TABLE_BANKACCOUNT);
 		String objectId = null;
@@ -190,7 +196,7 @@ public class ServerUtility {
 			}
 		return objectId;
 	}
-	
+
 	private static void updateAccounts(ParseObject owner, String accountID) {
 		JSONArray array = owner.getJSONArray(COLUMN_BANKACCOUNTS);
 		if (array == null) {
@@ -204,7 +210,7 @@ public class ServerUtility {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static boolean withdrawAmount(BankAccount account, double amount) {
 		boolean deposited = false;
 		if (amount <= account.getBalance()) {
@@ -214,7 +220,7 @@ public class ServerUtility {
 		}
 		return deposited;
 	}
-	
+
 	public static boolean depositAmount(BankAccount account, double amount) {
 		boolean deposited = false;
 		String transactionID = createDepositTransaction(amount);
@@ -222,7 +228,7 @@ public class ServerUtility {
 		deposited = true;
 		return deposited;
 	}
-	
+
 	private static String createDepositTransaction(double amount) {
 		ParseObject deposit = new ParseObject(TABLE_TRANSACTIONS);
 		String transactionId = null;
@@ -236,8 +242,8 @@ public class ServerUtility {
 		}
 		return transactionId;
 	}
-	
-	private static void updateBankAccountWithDeposit(BankAccount account, 
+
+	private static void updateBankAccountWithDeposit(BankAccount account,
 			String transactionID, double amount) {
 		double newBalance = account.getBalance() + amount;
 		String accountID = account.getObjectId();
@@ -262,9 +268,9 @@ public class ServerUtility {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	private static String createWithdrawTransaction(double amount) {
 		ParseObject deposit = new ParseObject(TABLE_TRANSACTIONS);
 		String transactionId = null;
@@ -278,8 +284,8 @@ public class ServerUtility {
 		}
 		return transactionId;
 	}
-	
-	private static void updateBankAccountWithWithdraw(BankAccount account, 
+
+	private static void updateBankAccountWithWithdraw(BankAccount account,
 			String transactionID, double amount) {
 		double newBalance = account.getBalance() - amount;
 		String accountID = account.getObjectId();
@@ -304,26 +310,48 @@ public class ServerUtility {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 	
-	public static ArrayList<Transactions> getTransactions(BankAccount account) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_BANKACCOUNT);
-		ParseObject result = null;
+	private static List<ParseObject> queryList(String table, String key, Object value) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
+		query.whereEqualTo(key, value);
+		List<ParseObject> result = null;
 		try {
-			result = query.get(account.getObjectId());
+			result = query.find();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JSONArray transactions = result.getJSONArray(COLUMN_TRANSACTIONS);
+		return result;
+	}
+	
+	private static ParseObject queryFirst(String table, String key, Object value) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
+		ParseObject result = null;
+		query.whereEqualTo(key, value);
 		try {
-			if (transactions.get(0).equals("")) {
+			result = query.getFirst();
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	private static JSONArray getJSONArray(ParseObject object, String column) {
+		JSONArray array = object.getJSONArray(column);
+		try {
+			if (array.get(0).equals("")) {
 				return null;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		} 
+		return array;
+	}
+
+	public static ArrayList<Transactions> getTransactions(BankAccount account) {
+		ParseObject result = queryFirst(TABLE_BANKACCOUNT, COLUMN_ID, account.getObjectId());
+		JSONArray transactions = getJSONArray(result, COLUMN_TRANSACTIONS);
 		ArrayList<Transactions> list = new ArrayList<Transactions>();
 		for (int i = 0; i < transactions.length(); i++) {
 			try {
@@ -335,14 +363,14 @@ public class ServerUtility {
 		}
 		return list;
 	}
-	
+
 	private static Transactions retrieveTransaction(String objectID) {
 		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_TRANSACTIONS);
 		ParseObject result = null;
 		Transactions t = null;
 		try {
 			result = query.get(objectID);
-			t = new Transactions(result.getNumber(COLUMN_AMOUNT).doubleValue(), 
+			t = new Transactions(result.getNumber(COLUMN_AMOUNT).doubleValue(),
 					result.getString(COLUMN_TRANSACTIONTYPE));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -350,6 +378,10 @@ public class ServerUtility {
 		}
 		return t;
 	}
-	
-	
+
+	public static boolean isAlreadyLoggedIn() {
+		return ParseUser.getCurrentUser() != null;
+	}
+
+
 }

@@ -79,7 +79,11 @@ public class TransactionActivity extends Activity {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			double amount = Integer.parseInt(mAmount.getText().toString());
+			String amountStr = mAmount.getText().toString();
+			if (amountStr.equals("")) {
+				return false;
+			}
+			double amount = Integer.parseInt(amountStr);
 			return ServerUtility.depositAmount(account, amount);
 		}
 		
@@ -109,7 +113,11 @@ public class TransactionActivity extends Activity {
 
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			double amount = Integer.parseInt(mAmount.getText().toString());
+			String amountStr = mAmount.getText().toString();
+			if (amountStr.equals("")) {
+				return false;
+			}
+			double amount = Integer.parseInt(amountStr);;
 			return ServerUtility.withdrawAmount(account, amount);
 		}
 		

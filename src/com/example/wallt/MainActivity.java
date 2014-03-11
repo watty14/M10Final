@@ -1,5 +1,7 @@
 package com.example.wallt;
 
+import com.parse.PushService;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
@@ -15,6 +17,7 @@ public class MainActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        PushService.setDefaultPushCallback(this, MainActivity.class);
         setContentView(R.layout.activity_main);
         TabAdapter = new TabPagerAdapter(getSupportFragmentManager());
         Tab = (ViewPager)findViewById(R.id.pager);

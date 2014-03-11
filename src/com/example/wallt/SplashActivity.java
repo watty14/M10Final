@@ -1,7 +1,5 @@
 package com.example.wallt;
 
-import com.parse.ParseUser;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -25,7 +23,7 @@ public class SplashActivity extends Activity {
 					// do nothing
 				} finally {
 					Intent i = null;
-					if (ParseUser.getCurrentUser() != null) {
+					if (ServerUtility.isAlreadyLoggedIn()) {
 						i = new Intent(SplashActivity.this, MainActivity.class);
 						
 					} else {
