@@ -1,5 +1,6 @@
 package com.example.wallt;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -24,15 +25,17 @@ public class ReportsFragment extends Fragment {
 	DatePicker fromDate;
 	DatePicker toDate;
 	Button reportButton;
+	View windows;
 	
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
     		Bundle savedInstanceState) {
-		View windows = inflater.inflate(R.layout.fragment_reports, container, false);
+		windows = inflater.inflate(R.layout.fragment_reports, container, false);
 		spendingCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxSpending);
 		incomeCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxIncome);
 		cashflowCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxCashFlow);
 		accountlistingCheckBox = (CheckBox) windows.findViewById(R.id.checkAccountsListing);
+		accountlistingCheckBox.setChecked(true);
 		
 		setUpIntroCheckBoxes();
 		
@@ -48,7 +51,31 @@ public class ReportsFragment extends Fragment {
 	private void setButtonOnClickListener() {
 		reportButton.setOnClickListener(new OnClickListener(){
 			public void onClick(View arg0) {
-				
+				int fromMonth = fromDate.getMonth();
+				int fromDay = fromDate.getDayOfMonth();
+				int fromYear = fromDate.getYear();
+				int toMonth = toDate.getMonth();
+				int toDay = toDate.getDayOfMonth();
+				int toYear = toDate.getYear();
+				String type = "";
+				if (spendingCheckBox.isChecked()) {
+					type = "spending";
+				} else if (accountlistingCheckBox.isChecked()) {
+					type = "accountlisting";
+				} else if (accountlistingCheckBox.isChecked()) {
+					type = "cashflow";
+				} else if (incomeCheckBox.isChecked()) {
+					type = "income";
+				}
+				Intent i = new Intent(windows.getContext(), GeneratedReportActivity.class);
+			    i.putExtra("FROMMONTH", fromMonth);
+			    i.putExtra("FROMDAY", fromDay);
+			    i.putExtra("FROMYEAR", fromYear);
+			    i.putExtra("TOMONTH", toMonth);
+			    i.putExtra("TODAY", toDay);
+			    i.putExtra("TOYEAR", toYear);
+			    i.putExtra("TYPE", type);
+				startActivity(i);
 			}
 		});
 	}
