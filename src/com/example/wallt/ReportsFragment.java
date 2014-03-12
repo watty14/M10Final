@@ -62,7 +62,7 @@ public class ReportsFragment extends Fragment {
 					type = "spending";
 				} else if (accountlistingCheckBox.isChecked()) {
 					type = "accountlisting";
-				} else if (accountlistingCheckBox.isChecked()) {
+				} else if (cashflowCheckBox.isChecked()) {
 					type = "cashflow";
 				} else if (incomeCheckBox.isChecked()) {
 					type = "income";

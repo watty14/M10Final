@@ -46,6 +46,8 @@ public class GeneratedReportActivity extends Activity {
 		from.set(fromYear, fromMonth, fromDay);
 		to.set(toYear, toMonth, toDay);
 		mProgressBar.setVisibility(View.VISIBLE);
+		System.out.println("FROM " + from.toString());
+		System.out.println("TO " + to.toString());
 		new AsyncTaskGenerateReport().execute();
 	}
 	

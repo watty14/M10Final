@@ -1,13 +1,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/Datefrom"
-        android:layout_toLeftOf="@+id/checkBoxIncome"
-        android:text="@string/end_date" />
 
     <Button
         android:id="@+id/buttonReport"
@@ -19,20 +12,20 @@
         android:text="@string/button_Report" />
 
     <DatePicker
-        android:id="@+id/Dateto"
+        android:id="@+id/Datefrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Datefrom"
+        android:layout_above="@+id/Dateto"
         android:layout_centerHorizontal="true"
         android:calendarViewShown="false"
         android:scaleX="0.7"
         android:scaleY="0.7" />
 
     <DatePicker
-        android:id="@+id/Datefrom"
+        android:id="@+id/Dateto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/Dateto"
+        android:layout_alignLeft="@+id/Datefrom"
         android:layout_centerVertical="true"
         android:calendarViewShown="false"
         android:scaleX="0.7"
@@ -73,10 +66,19 @@
         android:text="@string/checkbox_income" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/Dateto"
+        android:layout_above="@+id/Datefrom"
         android:layout_toLeftOf="@+id/checkBoxIncome"
         android:text="@string/start_date" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Datefrom"
+        android:layout_centerHorizontal="true"
+        android:text="@string/end_date" />
 
 </RelativeLayout>
