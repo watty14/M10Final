@@ -28,14 +28,17 @@ public class LoginActivity extends Activity {
 		
 		mLoginButton.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v) {
-				mLoginButton.setVisibility(View.INVISIBLE);
-				mProgressBar.setVisibility(View.VISIBLE);
-				
+			public void onClick(View v) {				
 				String username = mUsernameField.getText().toString();
 				String password = mPasswordField.getText().toString();
-				
-				new AsyncTaskLogInUser().execute(username, password);
+				if (username.equals("") || password.equals("")) {
+					Toast.makeText(LoginActivity.this, "Invalid Input", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					new AsyncTaskLogInUser().execute(username, password);
+					mLoginButton.setVisibility(View.INVISIBLE);
+					mProgressBar.setVisibility(View.VISIBLE);
+				}
 			}
 		});
 	}

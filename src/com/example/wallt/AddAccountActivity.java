@@ -32,12 +32,18 @@ public class AddAccountActivity extends Activity {
 		mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {	
-				mProgressBar.setVisibility(View.VISIBLE);
-				mCreateAccountButton.setVisibility(View.INVISIBLE);
 				String bankName = mBankNameField.getText().toString();
 				String accountNumber = mAccountNumberField.getText().toString();
 				String balance = mBalanceField.getText().toString();
-				new AsyncTaskCreateBankAccount().execute(bankName, accountNumber, balance);
+				if (bankName.equals("") || accountNumber.equals("") || balance.equals("")) {
+					Toast.makeText(AddAccountActivity.this, "Invalid Input", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					new AsyncTaskCreateBankAccount().execute(bankName, accountNumber, balance);
+					mProgressBar.setVisibility(View.VISIBLE);
+					mCreateAccountButton.setVisibility(View.INVISIBLE);
+				}
+				
 			}
 		});
 	}
@@ -47,7 +53,7 @@ public class AddAccountActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(String... params) {
 			BankAccount account = new BankAccount(null, params[1], Integer.parseInt(params[2]),
-					params[0], null);
+													  params[0], null);
 			return ServerUtility.createNewBankAccount(account);
 		}
 		

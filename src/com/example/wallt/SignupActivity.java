@@ -30,13 +30,18 @@ public class SignupActivity extends Activity {
 		mSignupButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				mSignupButton.setVisibility(View.INVISIBLE);
-				mProgressBar.setVisibility(View.VISIBLE);
+				
 				
 				String username = mUsernameField.getText().toString();
 				String password = mPasswordField.getText().toString();
-				
-				new AsyncTaskLogInUser().execute(username, password);
+				if (username.equals("") || password.equals("")) {
+					Toast.makeText(SignupActivity.this, "Invalid Input", 
+							Toast.LENGTH_SHORT).show();
+				} else {
+					new AsyncTaskLogInUser().execute(username, password);
+					mSignupButton.setVisibility(View.INVISIBLE);
+					mProgressBar.setVisibility(View.VISIBLE);
+				}
 			}
 		});
 	}
