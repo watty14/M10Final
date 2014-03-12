@@ -1,6 +1,8 @@
 package com.example.wallt;
 
 
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -11,6 +13,7 @@ public class BankAccount implements Parcelable {
 	private double balance;
 	private String bankName;
 	private String[] transactions;
+	private ArrayList<Transactions> listOfTransactions;
 	
 	public BankAccount(String objectId, String accountNumber, double balance,
 			String bankName, String[] transactions) {
@@ -19,6 +22,14 @@ public class BankAccount implements Parcelable {
 		this.bankName = bankName;
 		this.objectId = objectId;
 		this.transactions = transactions;
+	}
+	
+	public void setListOfTransactions(ArrayList<Transactions> list) {
+		listOfTransactions = list;
+	}
+	
+	public ArrayList<Transactions> getListOfTransactions() {
+		return listOfTransactions;
 	}
 	
 	public String[] getTransaction() {

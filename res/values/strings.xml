@@ -8,6 +8,7 @@
     <string name="login_button_label">LOG IN</string>
     <string name="signup_button_label">SIGN UP</string>
     <string name="logo">Logo</string>
+    <string name="reason_hint">Reason</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="password_hint">Password</string>
     <string name="username_hint">Username</string>

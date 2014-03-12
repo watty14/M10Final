@@ -22,6 +22,7 @@ public class TransactionActivity extends Activity {
 	private Button mWithdraw;
 	private Button mTransactionHistory;
 	private EditText mAmount;
+	private EditText mReason;
 	private ProgressBar mProgressBar;
 	
 	@Override
@@ -38,6 +39,7 @@ public class TransactionActivity extends Activity {
 		mWithdraw = (Button) findViewById(R.id.withdraw_button);
 		mTransactionHistory = (Button) findViewById(R.id.transactionhistory_button);
 		mAmount = (EditText) findViewById(R.id.amount_field);
+		mReason = (EditText) findViewById(R.id.reason_field);
 		mProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		
 		mBankname.setText("Bank Name: " + account.getBankName());
@@ -80,11 +82,12 @@ public class TransactionActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			String amountStr = mAmount.getText().toString();
+			String reasonStr = mReason.getText().toString();
 			if (amountStr.equals("")) {
 				return false;
 			}
 			double amount = Integer.parseInt(amountStr);
-			return ServerUtility.depositAmount(account, amount);
+			return ServerUtility.depositAmount(account, amount, reasonStr);
 		}
 		
 		@Override
@@ -114,11 +117,12 @@ public class TransactionActivity extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			String amountStr = mAmount.getText().toString();
+			String reasonStr = mReason.getText().toString();
 			if (amountStr.equals("")) {
 				return false;
 			}
 			double amount = Integer.parseInt(amountStr);;
-			return ServerUtility.withdrawAmount(account, amount);
+			return ServerUtility.withdrawAmount(account, amount, reasonStr);
 		}
 		
 		@Override

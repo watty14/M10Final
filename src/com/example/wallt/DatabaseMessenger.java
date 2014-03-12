@@ -1,22 +1,23 @@
+/*
+
 package com.example.wallt;
 
-import java.text.SimpleDateFormat;
+
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-public class ServerUtility {
+public class DatabaseMessenger {
 
 	//Table names
 	public static final String TABLE_USER = "User";
@@ -34,10 +35,8 @@ public class ServerUtility {
 	public static final String COLUMN_TRANSACTIONS = "transactions";
 	public static final String COLUMN_AMOUNT = "amount";
 	public static final String COLUMN_TRANSACTIONTYPE = "transactiontype";
-	public static final String COLUMN_DATE = "createdAt";
-	public static final String COLUMN_TRANSACTIONREASON = "reason";
-
-	public static Boolean logInUser(String username, String password) {
+	
+	public static boolean logInUser(String username, String password) {
 		ParseUser user = null;
 		try {
 			user = ParseUser.logIn(username, password);
@@ -46,27 +45,22 @@ public class ServerUtility {
 		}
 		return user != null;
 	}
-
+	
 	public static boolean signUpUser(String username, String password) {
 		ParseUser user = new ParseUser();
 		user.setUsername(username);
-		user.setPassword(password);
-		boolean created = false;
+		user.setPassword(username);
+		boolean isSignedUp = false;
 		try {
 			user.signUp();
 			addOwner(username);
-			created = true;
+			isSignedUp = true;
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		return created;
+		return isSignedUp;
 	}
-/*
-    private static ParseObject queryObject(String key, String value,
-            String table) {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
-        query.
-*/
+
 	private static void addOwner(String username) {
 		ParseObject owner = new ParseObject(TABLE_OWNER);
 		owner.put(COLUMN_USERNAME, username);
@@ -77,14 +71,9 @@ public class ServerUtility {
 		}
 	}
 
-	public static ArrayList<BankAccount> getBankAccounts() {
+	public static JSONArray getBankAccount() {
 		String username = ParseUser.getCurrentUser().getUsername();
-		String[] references = getBankAccountReferences(username);
-		ArrayList<BankAccount> list = null;
-		if (references != null) {
-			list = (ArrayList<BankAccount>) getBankAccountsHelper(references);
-		}
-		return list;
+		return getBankAccountReferences(username);
 	}
 
 	private static String[] getBankAccountReferences(String username) {
@@ -169,7 +158,6 @@ public class ServerUtility {
 		}
 		return reference;
 	}
-	
 
 
 	private static String createAccount(BankAccount account) {
@@ -217,30 +205,29 @@ public class ServerUtility {
 		}
 	}
 
-	public static boolean withdrawAmount(BankAccount account, double amount, String reason) {
+	public static boolean withdrawAmount(BankAccount account, double amount) {
 		boolean deposited = false;
 		if (amount <= account.getBalance()) {
-			String transactionID = createWithdrawTransaction(amount, reason);
+			String transactionID = createWithdrawTransaction(amount);
 			updateBankAccountWithWithdraw(account, transactionID, amount);
 			deposited = true;
 		}
 		return deposited;
 	}
 
-	public static boolean depositAmount(BankAccount account, double amount, String reason) {
+	public static boolean depositAmount(BankAccount account, double amount) {
 		boolean deposited = false;
-		String transactionID = createDepositTransaction(amount, reason);
+		String transactionID = createDepositTransaction(amount);
 		updateBankAccountWithDeposit(account, transactionID, amount);
 		deposited = true;
 		return deposited;
 	}
 
-	private static String createDepositTransaction(double amount, String reason) {
+	private static String createDepositTransaction(double amount) {
 		ParseObject deposit = new ParseObject(TABLE_TRANSACTIONS);
 		String transactionId = null;
 		deposit.put(COLUMN_AMOUNT, amount);
 		deposit.put(COLUMN_TRANSACTIONTYPE, "deposit");
-		deposit.put(COLUMN_TRANSACTIONREASON, reason);
 		try {
 			deposit.save();
 			transactionId = deposit.getObjectId();
@@ -278,12 +265,11 @@ public class ServerUtility {
 
 	}
 
-	private static String createWithdrawTransaction(double amount, String reason) {
+	private static String createWithdrawTransaction(double amount) {
 		ParseObject deposit = new ParseObject(TABLE_TRANSACTIONS);
 		String transactionId = null;
 		deposit.put(COLUMN_AMOUNT, amount);
 		deposit.put(COLUMN_TRANSACTIONTYPE, "withdraw");
-		deposit.put(COLUMN_TRANSACTIONREASON, reason);
 		try {
 			deposit.save();
 			transactionId = deposit.getObjectId();
@@ -320,55 +306,31 @@ public class ServerUtility {
 		}
 
 	}
-	
-	private static List<ParseObject> queryList(String table, String key, Object value) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
-		query.whereEqualTo(key, value);
-		List<ParseObject> result = null;
-		try {
-			result = query.find();
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
-	
-	private static ParseObject queryFirst(String table, String key, Object value) {
-		ParseQuery<ParseObject> query = ParseQuery.getQuery(table);
+
+	public static List<Transactions> getTransactions(BankAccount account) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery(TABLE_BANKACCOUNT);
 		ParseObject result = null;
-		query.whereEqualTo(key, value);
 		try {
-			result = query.getFirst();
+			result = query.get(account.getObjectId());
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return result;
-	}
-	
-	private static JSONArray getJSONArray(ParseObject object, String column) {
-		JSONArray array = object.getJSONArray(column);
+		JSONArray transactions = result.getJSONArray(COLUMN_TRANSACTIONS);
 		try {
-			if (array.get(0).equals("")) {
+			if (transactions.get(0).equals("")) {
 				return null;
 			}
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} 
-		return array;
-	}
-
-	public static ArrayList<Transactions> getTransactions(BankAccount account) {
-		ParseObject result = queryFirst(TABLE_BANKACCOUNT, COLUMN_ID, account.getObjectId());
-		JSONArray transactions = getJSONArray(result, COLUMN_TRANSACTIONS);
+		}
 		ArrayList<Transactions> list = new ArrayList<Transactions>();
-		if (transactions != null) {
-			for (int i = 0; i < transactions.length(); i++) {
-				try {
-					list.add(retrieveTransaction(transactions.getString(i)));
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+		for (int i = 0; i < transactions.length(); i++) {
+			try {
+				list.add(retrieveTransaction(transactions.getString(i)));
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
 		return list;
@@ -382,45 +344,18 @@ public class ServerUtility {
 			result = query.get(objectID);
 			t = new Transactions(result.getNumber(COLUMN_AMOUNT).doubleValue(),
 					result.getString(COLUMN_TRANSACTIONTYPE));
-			t.setReason(result.getString(COLUMN_TRANSACTIONREASON));
-			Date date = result.getCreatedAt();
-			Calendar cal = Calendar.getInstance();
-			cal.setTime(date);
-			t.setDate(cal);
 		} catch (ParseException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return t;
 	}
 
 	public static boolean isAlreadyLoggedIn() {
 		return ParseUser.getCurrentUser() != null;
 	}
-	
-	public static ArrayList<BankAccount> getReportData() {
-		String username = ParseUser.getCurrentUser().getUsername();
-		String[] references = getBankAccountReferences(username);
-		ArrayList<BankAccount> list = null;
-		if (references != null) {
-			list = (ArrayList<BankAccount>) getBankAccountsHelper(references);
-			for (BankAccount i : list) {
-				ArrayList<Transactions> transactions = getTransactions(i);
-				i.setListOfTransactions(transactions);
-			}
-		}
-		//displayReportData(list);
-		return list;
-	}
-	
-	private static void displayReportData(ArrayList<BankAccount> list) {
-		for (BankAccount b : list) {
-			ArrayList<Transactions> transactions = b.getListOfTransactions();
-			for (Transactions t : transactions) {
-				System.out.println(t.getDate());
-			}
-		}
-	}
 
 
 }
+
+*/
