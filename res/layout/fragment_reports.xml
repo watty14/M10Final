@@ -1,98 +1,82 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
-
+    
     <TextView
-        android:id="@+id/report_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginTop="18dp"
-        android:text="@string/report_type" />
-
-    <CheckBox
-        android:id="@+id/checkBoxSpending"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/report_type"
-        android:layout_marginTop="32dp"
-        android:text="@string/checkbox_spending" />
-
-    <CheckBox
-        android:id="@+id/checkBoxIncome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBoxSpending"
-        android:layout_alignBottom="@+id/checkBoxSpending"
-        android:layout_centerHorizontal="true"
-        android:text="@string/checkbox_income" />
-
-    <CheckBox
-        android:id="@+id/checkBoxBudget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/checkBoxIncome"
-        android:layout_alignBottom="@+id/checkBoxIncome"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="14dp"
-        android:text="@string/checkbox_budget" />
-
-    <TextView
-        android:id="@+id/textViewDateFrom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/report_type"
-        android:layout_below="@+id/checkBoxSpending"
-        android:layout_marginTop="15dp"
-        android:text="@string/start_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/editTextDate1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textViewDateTo"
-        android:layout_marginTop="19dp"
+        android:layout_above="@+id/Datefrom"
         android:layout_toLeftOf="@+id/checkBoxIncome"
-        android:ems="10"
-        android:inputType="date"
-        android:text="@string/edit_text_date1" />
-
-    <TextView
-        android:id="@+id/textViewDateTo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewDateFrom"
-        android:layout_alignBottom="@+id/textViewDateFrom"
-        android:layout_alignLeft="@+id/editTextDate2"
-        android:text="@string/end_date"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
-    <EditText
-        android:id="@+id/editTextDate2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/editTextDate1"
-        android:layout_alignBottom="@+id/editTextDate1"
-        android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/checkBoxIncome"
-        android:ems="10"
-        android:inputType="date"
-        android:text="@string/edit_text_date2" >
-
-        <requestFocus />
-    </EditText>
+        android:text="@string/end_date" />
 
     <Button
         android:id="@+id/buttonReport"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="72dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:text="@string/button_Report" />
+
+    <DatePicker
+        android:id="@+id/Dateto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Datefrom"
+        android:layout_centerHorizontal="true"
+        android:calendarViewShown="false"
+        android:scaleX="0.7"
+        android:scaleY="0.7" />
+
+    <DatePicker
+        android:id="@+id/Datefrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/Dateto"
+        android:layout_centerVertical="true"
+        android:calendarViewShown="false"
+        android:scaleX="0.7"
+        android:scaleY="0.7" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSpending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/checkBoxCashFlow"
+        android:layout_alignParentLeft="true"
+        android:text="@string/checkbox_spending" />
+
+    <CheckBox
+        android:id="@+id/checkBoxCashFlow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonReport"
+        android:layout_alignRight="@+id/Datefrom"
+        android:layout_marginBottom="18dp"
+        android:text="@string/checkbox_cashflow" />
+
+    <CheckBox
+        android:id="@+id/checkAccountsListing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/checkBoxSpending"
+        android:layout_alignParentLeft="true"
+        android:text="@string/checkbox_accountslisting" />
+
+    <CheckBox
+        android:id="@+id/checkBoxIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkAccountsListing"
+        android:layout_alignBottom="@+id/checkAccountsListing"
+        android:layout_alignLeft="@+id/checkBoxCashFlow"
+        android:text="@string/checkbox_income" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/Dateto"
+        android:layout_toLeftOf="@+id/checkBoxIncome"
+        android:text="@string/start_date" />
 
 </RelativeLayout>

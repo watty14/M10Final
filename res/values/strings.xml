@@ -42,11 +42,11 @@
     <string name="report_type">Type</string>
     <string name="checkbox_spending">Spending</string>
     <string name="checkbox_income">Income</string>
-    <string name="checkbox_budget">Budget</string>
+    <string name="checkbox_cashflow">Cash Flow</string>
+    <string name="checkbox_accountslisting">Accounts Listing</string>
     <string name="start_date">From</string>
     <string name="end_date">To</string>
-    <string name="edit_text_date1">1/1/2014</string>
-    <string name="edit_text_date2">1/1/2014</string>
-    <string name="button_Report">Report</string>
+    <string name="button_Report">Generate Report</string>
+    <string name="title_activity_generated_report">GeneratedReportActivity</string>
 
 </resources>

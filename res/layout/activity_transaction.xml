@@ -26,11 +26,21 @@
         android:id="@+id/amount_field"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/deposit_button"
+        android:layout_above="@+id/reason_field"
         android:layout_centerHorizontal="true"
         android:ems="10"
         android:hint="@string/amount_hint"
         android:inputType="number" />
+    
+    <EditText
+        android:id="@+id/reason_field"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/deposit_button"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="@string/reason_hint"
+        android:inputType="text" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
