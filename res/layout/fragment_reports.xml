@@ -1,12 +1,98 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/report_type"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="50sp"/>
-</LinearLayout>
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="18dp"
+        android:text="@string/report_type" />
+
+    <CheckBox
+        android:id="@+id/checkBoxSpending"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/report_type"
+        android:layout_marginTop="32dp"
+        android:text="@string/checkbox_spending" />
+
+    <CheckBox
+        android:id="@+id/checkBoxIncome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBoxSpending"
+        android:layout_alignBottom="@+id/checkBoxSpending"
+        android:layout_centerHorizontal="true"
+        android:text="@string/checkbox_income" />
+
+    <CheckBox
+        android:id="@+id/checkBoxBudget"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/checkBoxIncome"
+        android:layout_alignBottom="@+id/checkBoxIncome"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="14dp"
+        android:text="@string/checkbox_budget" />
+
+    <TextView
+        android:id="@+id/textViewDateFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/report_type"
+        android:layout_below="@+id/checkBoxSpending"
+        android:layout_marginTop="15dp"
+        android:text="@string/start_date"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextDate1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewDateTo"
+        android:layout_marginTop="19dp"
+        android:layout_toLeftOf="@+id/checkBoxIncome"
+        android:ems="10"
+        android:inputType="date"
+        android:text="@string/edit_text_date1" />
+
+    <TextView
+        android:id="@+id/textViewDateTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewDateFrom"
+        android:layout_alignBottom="@+id/textViewDateFrom"
+        android:layout_alignLeft="@+id/editTextDate2"
+        android:text="@string/end_date"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <EditText
+        android:id="@+id/editTextDate2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/editTextDate1"
+        android:layout_alignBottom="@+id/editTextDate1"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/checkBoxIncome"
+        android:ems="10"
+        android:inputType="date"
+        android:text="@string/edit_text_date2" >
+
+        <requestFocus />
+    </EditText>
+
+    <Button
+        android:id="@+id/buttonReport"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="72dp"
+        android:text="@string/button_Report" />
+
+</RelativeLayout>

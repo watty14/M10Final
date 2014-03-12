@@ -38,5 +38,14 @@
     <string name="title_activity_add_account">AddAccountActivity</string>
     <string name="title_activity_transaction">TransactionActivity</string>
     <string name="title_activity_transaction_history">TransactionHistoryActivity</string>
+    <string name="report_type">Type</string>
+    <string name="checkbox_spending">Spending</string>
+    <string name="checkbox_income">Income</string>
+    <string name="checkbox_budget">Budget</string>
+    <string name="start_date">From</string>
+    <string name="end_date">To</string>
+    <string name="edit_text_date1">1/1/2014</string>
+    <string name="edit_text_date2">1/1/2014</string>
+    <string name="button_Report">Report</string>
 
 </resources>
