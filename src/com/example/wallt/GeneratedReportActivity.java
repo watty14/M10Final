@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 /**
- *
+ * Class describing the behavior of generated report activity.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -19,57 +19,57 @@ import android.widget.TextView;
 public class GeneratedReportActivity extends Activity {
 
     /**
-     *
+     * Text view for report.
      */
     private TextView reportText;
 
     /**
-     *
+     * month to check from.
      */
     private int fromMonth;
 
     /**
-     *
+     * Day to check from.
      */
     private int fromDay;
 
     /**
-     *
+     * Year to check from.
      */
     private int fromYear;
 
     /**
-     *
+     * Month to check to.
      */
     private int toMonth;
 
     /**
-     *
+     * Day to check to.
      */
     private int toDay;
 
     /**
-     *
+     * Year to check to.
      */
     private int toYear;
 
     /**
-     *
+     * Type of report.
      */
     private String type;
 
     /**
-     *
+     * Calendar object from.
      */
     private Calendar from;
 
     /**
-     *
+     * Calendar object to.
      */
     private Calendar to;
 
     /**
-     *
+     * Progressbar that is a tracker.
      */
     private ProgressBar mProgressBar;
 
@@ -98,12 +98,13 @@ public class GeneratedReportActivity extends Activity {
     }
 
     /**
-     *
+     * Inner class that generates report.
      *
      * @author Thomas Harris (tharris7@gatech.edu)
      * @version 1.0
      */
-    private class AsyncTaskGenerateReport extends AsyncTask<Void, Void, String> {
+    private class AsyncTaskGenerateReport
+            extends AsyncTask<Void, Void, String> {
 
         @Override
         protected String doInBackground(Void... params) {

@@ -16,7 +16,7 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 
 /**
- *
+ * Class that defines the behavior of the account fragment.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -24,47 +24,50 @@ import android.widget.ProgressBar;
 public class AccountFragment extends ListFragment {
 
     /**
-     *
+     * Instance of progress tracker.
      */
     private ProgressBar mProgressBar;
 
     /**
-     *
+     * Instance of refresh button.
      */
     private Button mRefresh;
 
     /**
-     *
+     * Instance of add account button.
      */
     private Button mAddAccount;
 
     /**
-     *
+     * List of accounts user for adapter.
      */
     private ArrayList<BankAccount> accounts;
 
     /**
-     *
+     * The view of this fragment.
      */
     private View accountView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        accountView = inflater.inflate(R.layout.fragment_account, container, false);
-        mProgressBar = (ProgressBar) accountView.findViewById(R.id.progressBar1);
+        accountView = inflater.inflate(R.layout.fragment_account,
+                container, false);
+        mProgressBar = (ProgressBar) accountView.findViewById(
+                R.id.progressBar1);
         mRefresh = (Button) accountView.findViewById(R.id.refresh_button);
-        mRefresh.setOnClickListener (new View.OnClickListener() {
+        mRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new AsyncTaskGetAccounts().execute();
             }
         });
         mAddAccount = (Button) accountView.findViewById(R.id.addAccount_button);
-        mAddAccount.setOnClickListener (new View.OnClickListener() {
+        mAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(accountView.getContext(), AddAccountActivity.class);
+                Intent i = new Intent(accountView.getContext(),
+                    AddAccountActivity.class);
                 startActivity(i);
             }
         });
@@ -80,18 +83,20 @@ public class AccountFragment extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         BankAccount desired = accounts.get(position);
-        Intent i = new Intent(accountView.getContext(), TransactionActivity.class);
+        Intent i = new Intent(accountView.getContext(),
+                TransactionActivity.class);
         i.putExtra("account", desired);
         startActivity(i);
     }
 
     /**
-     *
+     * Class that performs update to bankaccount arraylist.
      *
      * @author Thomas Harris (tharris7@gatech.edu)
      * @version 1.0
      */
-    private class AsyncTaskGetAccounts extends AsyncTask<Void, Void, ArrayList<BankAccount>> {
+    private class AsyncTaskGetAccounts extends
+        AsyncTask<Void, Void, ArrayList<BankAccount>> {
 
         @Override
         protected ArrayList<BankAccount> doInBackground(Void... params) {
@@ -110,8 +115,9 @@ public class AccountFragment extends ListFragment {
             mProgressBar.setVisibility(View.INVISIBLE);
             if (list != null) {
                 accounts = list;
-                ArrayAdapter<BankAccount> arrayAdapter = new ArrayAdapter<BankAccount>(
-                        accountView.getContext(), android.R.layout.simple_list_item_1, list);
+                ArrayAdapter<BankAccount> arrayAdapter =
+                    new ArrayAdapter<BankAccount>(accountView.getContext(),
+                            android.R.layout.simple_list_item_1, list);
                 setListAdapter(arrayAdapter);
             }
         }

@@ -7,7 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- *
+ * Class describing the behavior of a bank account object.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -15,129 +15,129 @@ import android.os.Parcelable;
 public class BankAccount implements Parcelable {
 
     /**
-     *
+     * Unique objectId.
      */
     private String objectId;
 
     /**
-     *
+     * Account number identifier.
      */
     private String accountNumber;
 
     /**
-     *
+     * Current balance of account.
      */
     private double balance;
 
     /**
-     *
+     * Name of hosting bank.
      */
     private String bankName;
 
     /**
-     *
+     * Array of transaction ids.
      */
     private String[] transactions;
 
     /**
-     *
+     * Array List of transaction objects.
      */
     private ArrayList<Transactions> listOfTransactions;
 
     /**
+     * Constructor used in the creation of a bankAccount bject.
      *
-     *
-     * @param objectId 
-     * @param accountNumber
-     * @param balance
-     * @param bankName
-     * @param transactions
+     * @param objectId1 Unique id
+     * @param accountNumber1 Account number of bank account
+     * @param balance1 Current balance
+     * @param bankName1 Name of hosting bank
+     * @param transactions1 Array of transactions
      */
-    public BankAccount(String objectId, String accountNumber, double balance,
-            String bankName, String[] transactions) {
-        this.accountNumber = accountNumber;
-        this.balance = balance;
-        this.bankName = bankName;
-        this.objectId = objectId;
-        this.transactions = transactions;
+    public BankAccount(String objectId1, String accountNumber1, double balance1,
+            String bankName1, String[] transactions1) {
+        this.accountNumber = accountNumber1;
+        this.balance = balance1;
+        this.bankName = bankName1;
+        this.objectId = objectId1;
+        this.transactions = transactions1;
     }
 
     /**
+     * Sets transactions.
      *
-     *
-     * @param list
+     * @param list List to be set
      */
     public void setListOfTransactions(ArrayList<Transactions> list) {
         listOfTransactions = list;
     }
 
     /**
+     * Getter for transactions.
      *
-     *
-     * @return
+     * @return transactions
      */
     public ArrayList<Transactions> getListOfTransactions() {
         return listOfTransactions;
     }
 
     /**
+     * Getter for transactions.
      *
-     *
-     * @return
+     * @return transactions
      */
-    public String[] getTransaction() {
+    public String[] getTransactions() {
         return transactions;
     }
 
     /**
+     * Getter for account number.
      *
-     *
-     * @return
+     * @return account number
      */
     public String getAccountNumber() {
         return accountNumber;
     }
 
     /**
+     * Getter for objectId.
      *
-     *
-     * @return
+     * @return objectId
      */
     public String getObjectId() {
         return objectId;
     }
 
     /**
+     * Getter for current balance.
      *
-     *
-     * @return
+     * @return balance
      */
     public double getBalance() {
         return balance;
     }
 
     /**
+     * Getter for bank name.
      *
-     *
-     * @return
+     * @return bankNAme
      */
     public String getBankName() {
         return bankName;
     }
 
     /**
+     * Getter for balance.
      *
-     *
-     * @param amount
+     * @param amount Current balance
      */
     public void setBalance(double amount) {
         balance = amount;
     }
 
     /**
+     * To string method.
      *
-     *
-     * @return
+     * @return String
      */
     public String toString() {
         return "Account Number: " + accountNumber
@@ -146,9 +146,9 @@ public class BankAccount implements Parcelable {
     }
 
     /**
+     * Parces a bank account object.
      *
-     *
-     * @param source
+     * @param source Source of parcel
      */
     public BankAccount(Parcel source) {
         objectId = source.readString();
@@ -174,28 +174,28 @@ public class BankAccount implements Parcelable {
     }
 
     /**
+    * Creates a parelable item.
     *
     *
-    * 
     */
     public static final Parcelable.Creator<BankAccount> CREATOR =
             new Parcelable.Creator<BankAccount>() {
 
             /**
+             * Create a parcel
              *
-             *
-             * @param in
-             * @return
+             * @param in Parcelt
+             * @return BankAccount object
              */
             public BankAccount createFromParcel(Parcel in) {
                 return new BankAccount(in);
             }
 
             /**
+             * Creates array of bankaccount
              *
-             *
-             * @param size
-             * @return
+             * @param size Size to create
+             * @return Array of bankaccounts
              */
             public BankAccount[] newArray(int size) {
                 return new BankAccount[size];

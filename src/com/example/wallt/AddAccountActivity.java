@@ -12,7 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 /**
- *
+ * Class that defines the add account activity.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -20,27 +20,27 @@ import android.widget.Toast;
 public class AddAccountActivity extends Activity {
 
     /**
-     *
+     * Instance of the Bank Name Field.
      */
     private EditText mBankNameField;
 
     /**
-     *
+     * Instance of the Account Number field.
      */
     private EditText mAccountNumberField;
 
     /**
-     *
+     * Instance of the Balance field.
      */
     private EditText mBalanceField;
 
     /**
-     *
+     * Instance of create account button.
      */
     private Button mCreateAccountButton;
 
     /**
-     *
+     * Instance of the progress bar.
      */
     private ProgressBar mProgressBar;
 
@@ -60,11 +60,13 @@ public class AddAccountActivity extends Activity {
                 String bankName = mBankNameField.getText().toString();
                 String accountNumber = mAccountNumberField.getText().toString();
                 String balance = mBalanceField.getText().toString();
-                if (bankName.equals("") || accountNumber.equals("") || balance.equals("")) {
+                if (bankName.equals("") || accountNumber.equals("")
+                    || balance.equals("")) {
                     Toast.makeText(AddAccountActivity.this, "Invalid Input",
                             Toast.LENGTH_SHORT).show();
                 } else {
-                    new AsyncTaskCreateBankAccount().execute(bankName, accountNumber, balance);
+                    new AsyncTaskCreateBankAccount().execute(bankName,
+                        accountNumber, balance);
                     mProgressBar.setVisibility(View.VISIBLE);
                     mCreateAccountButton.setVisibility(View.INVISIBLE);
                 }
@@ -74,17 +76,18 @@ public class AddAccountActivity extends Activity {
     }
 
     /**
-     *
+     * Inner class that updates accounts.
      *
      * @author Thomas Harris (tharris7@gatech.edu)
      * @version 1.0
      */
-    private class AsyncTaskCreateBankAccount extends AsyncTask<String, Void, Boolean> {
+    private class AsyncTaskCreateBankAccount
+            extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... params) {
-            BankAccount account = new BankAccount(null, params[1], Integer.parseInt(params[2]),
-                                                      params[0], null);
+            BankAccount account = new BankAccount(null, params[1],
+                    Integer.parseInt(params[2]), params[0], null);
             return ServerUtility.createNewBankAccount(account);
         }
 
@@ -95,14 +98,27 @@ public class AddAccountActivity extends Activity {
             if (result) {
                 Toast.makeText(AddAccountActivity.this, "Account created",
                         Toast.LENGTH_LONG).show();
-                for (int waitx = 0; waitx < 5000; waitx++) {
-                    for (int waity = 0; waity < 5000; waity++) {
+                Thread th = new Thread() {
+                    @Override
+                    public void run() {
+                        try {
+                            int waited = 0;
+                            while (waited < 1000) {
+                                sleep(100);
+                                waited += 100;
+                            }
+                        } catch (InterruptedException e) {
+                            //do nothing
+                        } finally {
+                            finish();
+                        }
                     }
-                }
-                finish();
+                };
+                th.start();
             } else {
                 mCreateAccountButton.setVisibility(View.VISIBLE);
-                Toast.makeText(AddAccountActivity.this, "Failed to create account! Try again.",
+                Toast.makeText(AddAccountActivity.this,
+                        "Failed to create account! Try again.",
                         Toast.LENGTH_LONG).show();
             }
         }
