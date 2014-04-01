@@ -2,6 +2,7 @@ package com.example.wallt;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -40,12 +41,92 @@ public class BankAccount implements Parcelable {
     private String[] transactions;
 
     /**
-     * Array List of transaction objects.
-     */
-    private ArrayList<Transactions> listOfTransactions;
+    * Creates a parelable item.
+    *
+    *
+    */
+    public static final Parcelable.Creator<BankAccount> CREATOR =
+            new Parcelable.Creator<BankAccount>() {
+
+            /**
+             * Create a parcel
+             *
+             * @param in Parcelt
+             * @return BankAccount object
+             */
+            public BankAccount createFromParcel(final Parcel inParcel) {
+                return new BankAccount(inParcel);
+            }
+
+            /**
+             * Creates array of bankaccount
+             *
+             * @param size Size to create
+             * @return Array of bankaccounts
+             */
+            public BankAccount[] newArray(final int size) {
+                return new BankAccount[size];
+            }
+        };
+
 
     /**
-     * Constructor used in the creation of a bankAccount bject.
+     * Array List of transaction objects.
+     */
+    private List<Transactions> listTrans;
+
+    /**
+     * Getter for transactions.
+     * @return transactions.
+     */
+    public List<Transactions> getListTrans() {
+        return listTrans;
+    }
+
+    /**
+     * Setter for transactions.
+     * @param listTrans1 to be set
+     */
+    public void setListTrans(final List<Transactions> listTrans1) {
+        this.listTrans = (ArrayList<Transactions>) listTrans1;
+    }
+
+    /**
+     * Setter for object id.
+     * @param objectId1 Id to be set.
+     */
+    public void setObjectId(final String objectId1) {
+        this.objectId = objectId1;
+    }
+
+    /**
+     * Setter for account number.
+     * @param accountNumber1 Number to be set.
+     */
+    public void setAccountNumber(final String accountNumber1) {
+        this.accountNumber = accountNumber1;
+    }
+
+    /**
+     * Setter for bank name.
+     * @param bankName1 Banke name to be set.
+     */
+    public void setBankName(final String bankName1) {
+        this.bankName = bankName1;
+    }
+
+    /**
+     * Setter for transactions.
+     * @param transactions1 Transaction to be set.
+     */
+    public void setTransactions(final String[] transactions1) {
+        System.arraycopy(transactions1, 0, transactions, 0, transactions1.length);
+    }
+
+
+
+    /**
+     * Constructor used in the creation of a bankAccount object.
      *
      * @param objectId1 Unique id
      * @param accountNumber1 Account number of bank account
@@ -53,31 +134,14 @@ public class BankAccount implements Parcelable {
      * @param bankName1 Name of hosting bank
      * @param transactions1 Array of transactions
      */
-    public BankAccount(String objectId1, String accountNumber1, double balance1,
-            String bankName1, String[] transactions1) {
+    public BankAccount(final String objectId1, final String accountNumber1,
+            final double balance1, final String bankName1,
+            final String[] transactions1) {
         this.accountNumber = accountNumber1;
         this.balance = balance1;
         this.bankName = bankName1;
         this.objectId = objectId1;
-        this.transactions = transactions1;
-    }
-
-    /**
-     * Sets transactions.
-     *
-     * @param list List to be set
-     */
-    public void setListOfTransactions(ArrayList<Transactions> list) {
-        listOfTransactions = list;
-    }
-
-    /**
-     * Getter for transactions.
-     *
-     * @return transactions
-     */
-    public ArrayList<Transactions> getListOfTransactions() {
-        return listOfTransactions;
+        System.arraycopy(transactions1, 0, transactions, 0, transactions1.length);
     }
 
     /**
@@ -86,7 +150,9 @@ public class BankAccount implements Parcelable {
      * @return transactions
      */
     public String[] getTransactions() {
-        return transactions;
+        String[] result = null;
+        System.arraycopy(transactions, 0, result, 0, transactions.length);
+        return result;
     }
 
     /**
@@ -130,7 +196,7 @@ public class BankAccount implements Parcelable {
      *
      * @param amount Current balance
      */
-    public void setBalance(double amount) {
+    public void setBalance(final double amount) {
         balance = amount;
     }
 
@@ -150,7 +216,7 @@ public class BankAccount implements Parcelable {
      *
      * @param source Source of parcel
      */
-    public BankAccount(Parcel source) {
+    public BankAccount(final Parcel source) {
         objectId = source.readString();
         accountNumber = source.readString();
         balance = source.readDouble();
@@ -165,41 +231,13 @@ public class BankAccount implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(final Parcel dest,
+            final int flags) {
         dest.writeString(objectId);
         dest.writeString(accountNumber);
         dest.writeDouble(balance);
         dest.writeString(bankName);
           //dest.writeStringArray(transactions);
     }
-
-    /**
-    * Creates a parelable item.
-    *
-    *
-    */
-    public static final Parcelable.Creator<BankAccount> CREATOR =
-            new Parcelable.Creator<BankAccount>() {
-
-            /**
-             * Create a parcel
-             *
-             * @param in Parcelt
-             * @return BankAccount object
-             */
-            public BankAccount createFromParcel(Parcel in) {
-                return new BankAccount(in);
-            }
-
-            /**
-             * Creates array of bankaccount
-             *
-             * @param size Size to create
-             * @return Array of bankaccounts
-             */
-            public BankAccount[] newArray(int size) {
-                return new BankAccount[size];
-            }
-        };
 
 }

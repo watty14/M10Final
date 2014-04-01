@@ -22,53 +22,59 @@ public class AddAccountActivity extends Activity {
     /**
      * Instance of the Bank Name Field.
      */
-    private EditText mBankNameField;
+    private static EditText mBankNameField;
 
     /**
      * Instance of the Account Number field.
      */
-    private EditText mAccountNumberField;
+    private static EditText mAccountNumber;
 
     /**
      * Instance of the Balance field.
      */
-    private EditText mBalanceField;
+    private static EditText mBalanceField;
 
     /**
      * Instance of create account button.
      */
-    private Button mCreateAccountButton;
+    private static Button mCreateAccount;
 
     /**
      * Instance of the progress bar.
      */
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
+    
+    /**
+     * Empty string.
+     */
+    private static String empty = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(final Bundle savedInstance) {
+        super.onCreate(savedInstance);
         setContentView(R.layout.activity_add_account);
         mBankNameField = (EditText) findViewById(R.id.bankname_field);
-        mAccountNumberField = (EditText) findViewById(R.id.accountnumber_field);
+        mAccountNumber = (EditText) findViewById(R.id.accountnumber_field);
         mBalanceField = (EditText) findViewById(R.id.balance_field);
-        mCreateAccountButton = (Button) findViewById(R.id.createaccount_button);
+        mCreateAccount = (Button) findViewById(R.id.createaccount_button);
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar1);
 
-        mCreateAccountButton.setOnClickListener(new View.OnClickListener() {
+        mCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                String bankName = mBankNameField.getText().toString();
-                String accountNumber = mAccountNumberField.getText().toString();
-                String balance = mBalanceField.getText().toString();
-                if (bankName.equals("") || accountNumber.equals("")
-                    || balance.equals("")) {
+            public void onClick(final View view) {
+                final String bankName = (String) mBankNameField.getText().toString();
+                final String accountNumber = mAccountNumber.getText().toString();
+                final String balance = mBalanceField.getText().toString();
+                
+                if (empty.equals(bankName) || empty.equals(accountNumber)
+                    || empty.equals(balance)) {
                     Toast.makeText(AddAccountActivity.this, "Invalid Input",
                             Toast.LENGTH_SHORT).show();
                 } else {
                     new AsyncTaskCreateBankAccount().execute(bankName,
                         accountNumber, balance);
                     mProgressBar.setVisibility(View.VISIBLE);
-                    mCreateAccountButton.setVisibility(View.INVISIBLE);
+                    mCreateAccount.setVisibility(View.INVISIBLE);
                 }
 
             }
@@ -85,20 +91,20 @@ public class AddAccountActivity extends Activity {
             extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            BankAccount account = new BankAccount(null, params[1],
+        protected Boolean doInBackground(final String... params) {
+            final BankAccount account = new BankAccount(null, params[1],
                     Integer.parseInt(params[2]), params[0], null);
             return ServerUtility.createNewBankAccount(account);
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(final Boolean result) {
             super.onPostExecute(result);
             mProgressBar.setVisibility(View.INVISIBLE);
             if (result) {
                 Toast.makeText(AddAccountActivity.this, "Account created",
                         Toast.LENGTH_LONG).show();
-                Thread th = new Thread() {
+                final Thread thread = new Thread() {
                     @Override
                     public void run() {
                         try {
@@ -114,9 +120,9 @@ public class AddAccountActivity extends Activity {
                         }
                     }
                 };
-                th.start();
+                thread.start();
             } else {
-                mCreateAccountButton.setVisibility(View.VISIBLE);
+                mCreateAccount.setVisibility(View.VISIBLE);
                 Toast.makeText(AddAccountActivity.this,
                         "Failed to create account! Try again.",
                         Toast.LENGTH_LONG).show();

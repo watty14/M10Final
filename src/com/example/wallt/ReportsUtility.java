@@ -27,7 +27,7 @@ public class ReportsUtility {
         HashMap<String, Double> map = new HashMap<String, Double>();
         if (list != null) {
             for (BankAccount b : list) {
-                ArrayList<Transactions> transactions = b.getListOfTransactions();
+                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -70,7 +70,7 @@ public class ReportsUtility {
         HashMap<String, Double> map = new HashMap<String, Double>();
         if (list != null) {
             for (BankAccount b : list) {
-                ArrayList<Transactions> transactions = b.getListOfTransactions();
+                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -113,7 +113,7 @@ public class ReportsUtility {
         double expenses = 0;
         if (list != null) {
             for (BankAccount b : list) {
-                ArrayList<Transactions> transactions = b.getListOfTransactions();
+                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -198,8 +198,8 @@ public class ReportsUtility {
     private ArrayList<BankAccount> filteredBankAccounts(Calendar from, Calendar to) {
         ArrayList<BankAccount> accounts = ServerUtility.getReportData();
         for (BankAccount b : accounts) {
-            ArrayList<Transactions> newList = filterByDate(b.getListOfTransactions(), from, to);
-            b.setListOfTransactions(newList);
+            ArrayList<Transactions> newList = filterByDate((ArrayList<Transactions>) b.getListTrans(), from, to);
+            b.setListTrans(newList);
         }
         return accounts;
     }

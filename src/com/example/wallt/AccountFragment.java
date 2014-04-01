@@ -2,6 +2,7 @@ package com.example.wallt;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.support.v4.app.ListFragment;
 import android.content.Intent;
@@ -26,31 +27,31 @@ public class AccountFragment extends ListFragment {
     /**
      * Instance of progress tracker.
      */
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
 
     /**
      * Instance of refresh button.
      */
-    private Button mRefresh;
+    private static Button mRefresh;
 
     /**
      * Instance of add account button.
      */
-    private Button mAddAccount;
+    private static Button mAddAccount;
 
     /**
      * List of accounts user for adapter.
      */
-    private ArrayList<BankAccount> accounts;
+    private static List<BankAccount> accounts;
 
     /**
      * The view of this fragment.
      */
-    private View accountView;
+    private static View accountView;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
+            final Bundle savedInstance) {
         accountView = inflater.inflate(R.layout.fragment_account,
                 container, false);
         mProgressBar = (ProgressBar) accountView.findViewById(
@@ -58,17 +59,17 @@ public class AccountFragment extends ListFragment {
         mRefresh = (Button) accountView.findViewById(R.id.refresh_button);
         mRefresh.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View clickView) {
                 new AsyncTaskGetAccounts().execute();
             }
         });
         mAddAccount = (Button) accountView.findViewById(R.id.addAccount_button);
         mAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent i = new Intent(accountView.getContext(),
+            public void onClick(final View clickView) {
+                final Intent intent = new Intent(accountView.getContext(),
                     AddAccountActivity.class);
-                startActivity(i);
+                startActivity(intent);
             }
         });
         return accountView;
@@ -81,12 +82,14 @@ public class AccountFragment extends ListFragment {
     }
 
     @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        BankAccount desired = accounts.get(position);
-        Intent i = new Intent(accountView.getContext(),
+    public void onListItemClick(final ListView list, 
+    		final View view, final int position, 
+    		final long itemID) {
+        final BankAccount desired = accounts.get(position);
+        final Intent intent = new Intent(accountView.getContext(),
                 TransactionActivity.class);
-        i.putExtra("account", desired);
-        startActivity(i);
+        intent.putExtra("account", desired);
+        startActivity(intent);
     }
 
     /**
@@ -99,23 +102,23 @@ public class AccountFragment extends ListFragment {
         AsyncTask<Void, Void, ArrayList<BankAccount>> {
 
         @Override
-        protected ArrayList<BankAccount> doInBackground(Void... params) {
+        protected ArrayList<BankAccount> doInBackground(final Void... params) {
             publishProgress();
             return ServerUtility.getBankAccounts();
         }
 
         @Override
-        protected void onProgressUpdate(Void... params) {
+        protected void onProgressUpdate(final Void... params) {
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected void onPostExecute(ArrayList<BankAccount> list) {
+        protected void onPostExecute(final ArrayList<BankAccount> list) {
             super.onPostExecute(list);
             mProgressBar.setVisibility(View.INVISIBLE);
             if (list != null) {
                 accounts = list;
-                ArrayAdapter<BankAccount> arrayAdapter =
+                final ArrayAdapter<BankAccount> arrayAdapter =
                     new ArrayAdapter<BankAccount>(accountView.getContext(),
                             android.R.layout.simple_list_item_1, list);
                 setListAdapter(arrayAdapter);

@@ -618,7 +618,7 @@ public class ServerUtility {
             list = (ArrayList<BankAccount>) getBankAccountsHelper(references);
             for (BankAccount i : list) {
                 ArrayList<Transactions> transactions = getTransactions(i);
-                i.setListOfTransactions(transactions);
+                i.setListTrans(transactions);
             }
         }
         //displayReportData(list);
@@ -632,7 +632,7 @@ public class ServerUtility {
      */
     private static void displayReportData(ArrayList<BankAccount> list) {
         for (BankAccount b : list) {
-            ArrayList<Transactions> transactions = b.getListOfTransactions();
+            ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
             for (Transactions t : transactions) {
                 System.out.println(t.getDate());
             }

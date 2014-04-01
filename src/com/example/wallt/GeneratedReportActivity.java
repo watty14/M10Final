@@ -21,61 +21,61 @@ public class GeneratedReportActivity extends Activity {
     /**
      * Text view for report.
      */
-    private TextView reportText;
+    private static TextView reportText;
 
     /**
      * month to check from.
      */
-    private int fromMonth;
+    private static int fromMonth;
 
     /**
      * Day to check from.
      */
-    private int fromDay;
+    private static int fromDay;
 
     /**
      * Year to check from.
      */
-    private int fromYear;
+    private static int fromYear;
 
     /**
      * Month to check to.
      */
-    private int toMonth;
+    private static int toMonth;
 
     /**
      * Day to check to.
      */
-    private int toDay;
+    private static int toDay;
 
     /**
      * Year to check to.
      */
-    private int toYear;
+    private static int toYear;
 
     /**
      * Type of report.
      */
-    private String type;
+    private static String type;
 
     /**
      * Calendar object from.
      */
-    private Calendar from;
+    private static Calendar from;
 
     /**
      * Calendar object to.
      */
-    private Calendar to;
+    private static Calendar to;
 
     /**
      * Progressbar that is a tracker.
      */
-    private ProgressBar mProgressBar;
+    private static ProgressBar mProgressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreate(final Bundle savedInstance) {
+        super.onCreate(savedInstance);
         setContentView(R.layout.activity_generated_report);
         reportText = (TextView) findViewById(R.id.reportText);
         mProgressBar = (ProgressBar) findViewById(R.id.progressbar1);
@@ -92,8 +92,6 @@ public class GeneratedReportActivity extends Activity {
         from.set(fromYear, fromMonth, fromDay);
         to.set(toYear, toMonth, toDay);
         mProgressBar.setVisibility(View.VISIBLE);
-        System.out.println("FROM " + from.toString());
-        System.out.println("TO " + to.toString());
         new AsyncTaskGenerateReport().execute();
     }
 
@@ -107,7 +105,7 @@ public class GeneratedReportActivity extends Activity {
             extends AsyncTask<Void, Void, String> {
 
         @Override
-        protected String doInBackground(Void... params) {
+        protected String doInBackground(final Void... params) {
             publishProgress();
             ReportsUtility reports = new ReportsUtility();
             if (type.equals("spending")) {
@@ -123,12 +121,12 @@ public class GeneratedReportActivity extends Activity {
         }
 
         @Override
-        protected void onProgressUpdate(Void... params) {
+        protected void onProgressUpdate(final Void... params) {
             mProgressBar.setVisibility(View.VISIBLE);
         }
 
         @Override
-        protected void onPostExecute(String str) {
+        protected void onPostExecute(final String str) {
             super.onPostExecute(str);
             mProgressBar.setVisibility(View.INVISIBLE);
             reportText.setText(str);
