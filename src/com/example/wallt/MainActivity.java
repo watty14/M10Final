@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 /**
- * The MainActivity is the main page of this application
+ * The MainActivity is the main page of this application.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0

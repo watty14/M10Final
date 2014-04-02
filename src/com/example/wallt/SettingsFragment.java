@@ -35,11 +35,11 @@ public class SettingsFragment extends ListFragment {
         mLogout = (Button) account.findViewById(R.id.logout_button);
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 ParseUser.logOut();
-                Intent i = new Intent(account.getContext(), LoginOrSignUpActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                startActivity(i);
+                Intent intents = new Intent(account.getContext(), LoginOrSignUpActivity.class);
+                intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intents);
             }
         });
         return account;
