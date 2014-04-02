@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
 /**
- *
+ * The MainActivity is the main page of this application.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -17,17 +17,17 @@ import android.support.v4.view.ViewPager;
 public class MainActivity extends FragmentActivity {
 
     /**
-     *
+     * Instance variable for ViewPager.
      */
     private ViewPager tab;
 
     /**
-     *
+     * Instance variable for TabPagerAdapter.
      */
     private TabPagerAdapter tabAdapter;
 
     /**
-     *
+     * Instance variable for ActionBar.
      */
     private ActionBar actionBar;
 

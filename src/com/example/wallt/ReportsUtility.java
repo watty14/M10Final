@@ -7,7 +7,8 @@ import java.util.HashMap;
 import com.parse.ParseUser;
 
 /**
- *
+ * ReportsUtility class allows to to take input dates and types of date to
+ * create the proper report for the users.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -15,11 +16,31 @@ import com.parse.ParseUser;
 public class ReportsUtility {
 
     /**
+     * deposit : Instance Variable for a String.
+     */
+    private String deposit = "deposit";
+
+    /**
+     * withdraw : Instance Variable for a String.
+     */
+    private String withdraw = "withdraws";
+
+    /**
+     * space : Instance Variable for a String.
+     */
+    private String space = ":    ";
+
+    /**
+     * newLine : Instance Variable for a String.
+     */
+    private String newLine = "\n";
+
+    /**
+     * generateSpendingReport creates a report for spending.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateSpendingReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -31,15 +52,15 @@ public class ReportsUtility {
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
-                    if (type.equals("withdraw")) {
-                        String reason = t.getReason();
-                        reason = reason.toLowerCase();
+                    if (type.equals(withdraw)) {
+                        String reason1 = t.getReason();
+                        reason1 = reason1.toLowerCase();
                         double amount = t.getAmount();
-                        if (map.containsKey(reason)) {
-                            double current = map.get(reason);
+                        if (map.containsKey(reason1)) {
+                            double current = map.get(reason1);
                             amount = amount + current;
                         }
-                        map.put(reason, amount);
+                        map.put(reason1, amount);
                     }
                 }
             }
@@ -47,22 +68,22 @@ public class ReportsUtility {
         StringBuilder str = new StringBuilder();
         String title = "Spending Category Report for " + ParseUser.getCurrentUser().getUsername();
         String date = from.getTime().toString() + " - " + to.getTime().toString();
-        str.append(title + "\n");
-        str.append(date + "\n");
+        str.append(title + newLine);
+        str.append(date + newLine);
         for (HashMap.Entry<String, Double> entry : map.entrySet()) {
             String reason = entry.getKey();
             double amount = entry.getValue();
-            str.append(reason + ":    " + amount + "\n");
+            str.append(reason + space + amount + newLine);
         }
         return str.toString();
     }
 
     /**
+     *generateIncomeReport method creates a report based on Income.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateIncomeReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -74,7 +95,7 @@ public class ReportsUtility {
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
-                    if (type.equals("deposit")) {
+                    if (type.equals(deposit)) {
                         String reason = t.getReason();
                         reason = reason.toLowerCase();
                         double amount = t.getAmount();
@@ -90,36 +111,36 @@ public class ReportsUtility {
         StringBuilder str = new StringBuilder();
         String title = "Income Category Report for " + ParseUser.getCurrentUser().getUsername();
         String date = from.getTime().toString() + " - " + to.getTime().toString();
-        str.append(title + "\n");
-        str.append(date + "\n");
+        str.append(title + newLine);
+        str.append(date + newLine);
         for (HashMap.Entry<String, Double> entry : map.entrySet()) {
             String reason = entry.getKey();
             double amount = entry.getValue();
-            str.append(reason + ":    " + amount + "\n");
+            str.append(reason + space + amount + newLine);
         }
         return str.toString();
     }
 
     /**
+     * generateCashFlowReport method creates a report based on cash flow.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateCashFlowReport(Calendar from, Calendar to) {
-        ArrayList<BankAccount> list = filteredBankAccounts(from, to);
+        ArrayList<BankAccount> list2 = filteredBankAccounts(from, to);
         double income = 0;
         double expenses = 0;
-        if (list != null) {
-            for (BankAccount b : list) {
+        if (list2 != null) {
+            for (BankAccount b : list2) {
                 ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
-                    if (type.equals("deposit")) {
+                    if (type.equals(deposit)) {
                         income = income + t.getAmount();
-                    } else if (type.equals("withdraw")) {
+                    } else if (type.equals(withdraw)) {
                         expenses = expenses + t.getAmount();
                     }
                 }
@@ -140,11 +161,11 @@ public class ReportsUtility {
     }
 
     /**
+     * generateAccountListingReport method creates a report based on AccountList.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateAccountListingReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -164,12 +185,12 @@ public class ReportsUtility {
     }
 
     /**
+     * generateTransactionHistory method creates a transaction history for an bank account.
      *
-     *
-     * @param account
-     * @param from
-     * @param to
-     * @return
+     * @param account : Bank account object
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateTransactionHistory(BankAccount account,
             Calendar from, Calendar to) {
@@ -189,11 +210,11 @@ public class ReportsUtility {
     }
 
     /**
+     * filteredBankAccounts method filters out the date range.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return ArrayList<BankAccount> : list of bankaccounts with valid informations
      */
     private ArrayList<BankAccount> filteredBankAccounts(Calendar from, Calendar to) {
         ArrayList<BankAccount> accounts = ServerUtility.getReportData();
@@ -205,12 +226,13 @@ public class ReportsUtility {
     }
 
     /**
+     * filterByDate method is a helper method for filteredBankAccounts which
+     * helps filter out bank accounts by date ranges.
      *
-     *
-     * @param list
-     * @param from
-     * @param to
-     * @return
+     * @param list : list of bank accounts.
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return ArrayList<Transactions> : List of transactions.
      */
     private ArrayList<Transactions> filterByDate(ArrayList<Transactions> list, Calendar from, Calendar to) {
         ArrayList<Transactions> finalList = new ArrayList<Transactions>();
