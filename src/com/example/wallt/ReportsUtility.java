@@ -7,7 +7,8 @@ import java.util.HashMap;
 import com.parse.ParseUser;
 
 /**
- *
+ * ReportsUtility class allows to to take input dates and types of date to
+ * create the proper report for the users.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -15,11 +16,11 @@ import com.parse.ParseUser;
 public class ReportsUtility {
 
     /**
+     * generateSpendingReport creates a report for spending.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateSpendingReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -58,11 +59,11 @@ public class ReportsUtility {
     }
 
     /**
+     *generateIncomeReport method creates a report based on Income
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateIncomeReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -101,11 +102,11 @@ public class ReportsUtility {
     }
 
     /**
+     * generateCashFlowReport method creates a report based on cash flow
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateCashFlowReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -140,11 +141,11 @@ public class ReportsUtility {
     }
 
     /**
+     * generateAccountListingReport method creates a report based on AccountList
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateAccountListingReport(Calendar from, Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
@@ -164,12 +165,12 @@ public class ReportsUtility {
     }
 
     /**
+     * generateTransactionHistory method creates a transaction history for an bank account.
      *
-     *
-     * @param account
-     * @param from
-     * @param to
-     * @return
+     * @param account : Bank account object
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return String of transactions and reasons.
      */
     public String generateTransactionHistory(BankAccount account,
             Calendar from, Calendar to) {
@@ -189,11 +190,11 @@ public class ReportsUtility {
     }
 
     /**
+     * filteredBankAccounts method filters out the date range.
      *
-     *
-     * @param from
-     * @param to
-     * @return
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return ArrayList<BankAccount> : list of bankaccounts with valid informations
      */
     private ArrayList<BankAccount> filteredBankAccounts(Calendar from, Calendar to) {
         ArrayList<BankAccount> accounts = ServerUtility.getReportData();
@@ -205,12 +206,13 @@ public class ReportsUtility {
     }
 
     /**
+     * filterByDate method is a helper method for filteredBankAccounts which
+     * helps filter out bank accounts by date ranges.
      *
-     *
-     * @param list
-     * @param from
-     * @param to
-     * @return
+     * @param list : list of bank accounts.
+     * @param from : starting date of the report.
+     * @param to   : ending date of the report.
+     * @return ArrayList<Transactions> : List of transactions.
      */
     private ArrayList<Transactions> filterByDate(ArrayList<Transactions> list, Calendar from, Calendar to) {
         ArrayList<Transactions> finalList = new ArrayList<Transactions>();

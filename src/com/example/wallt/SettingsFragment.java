@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 /**
- *
+ * SettingFragment is a part of MainActivity which takes care of logout.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -19,12 +19,12 @@ import android.widget.Button;
 public class SettingsFragment extends ListFragment {
 
     /**
-     *
+     * mLogout : Instance Variable for a button.
      */
     private Button mLogout;
 
     /**
-     *
+     * account : Instance Variable for a View.
      */
     private View account;
 

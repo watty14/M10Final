@@ -13,7 +13,8 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 
 /**
- *
+ * ReportsFragment is an activity for Report on
+ * MainActivity.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -21,47 +22,47 @@ import android.widget.DatePicker;
 public class ReportsFragment extends Fragment {
 
     /**
-     *
+     * checklistValues: Instance variable of Integer array.
      */
     private int[] checklistValues = new int[4];
 
     /**
-     *
+     * spendingCheckBox: Instance variable of CheckBox.
      */
     private CheckBox spendingCheckBox;
 
     /**
-     *
+     * incomeCheckBox: Instance variable of CheckBox.
      */
     private CheckBox incomeCheckBox;
 
     /**
-     *
+     * cashflowCheckBo: Instance variable of CheckBox.
      */
     private CheckBox cashflowCheckBox;
 
     /**
-     *
+     * accountlistingCheckBox: Instance variable of CheckBox.
      */
     private CheckBox accountlistingCheckBox;
 
     /**
-     *
+     * fromDate: Instance variable of DatePicker.
      */
     private DatePicker fromDate;
 
     /**
-     *
+     * toDate: Instance variable of DatePicker.
      */
     private DatePicker toDate;
 
     /**
-     *
+     * reportButton: Instance variable of Button.
      */
     private Button reportButton;
 
     /**
-     *
+     * windows: Instance variable of View.
      */
     private View windows;
 
@@ -87,7 +88,8 @@ public class ReportsFragment extends Fragment {
     }
 
     /**
-     *
+     * setButtonOnClickListener is a listener method for a button
+     * for dates and checkboxes.
      */
     private void setButtonOnClickListener() {
         reportButton.setOnClickListener(new OnClickListener() {
@@ -122,7 +124,8 @@ public class ReportsFragment extends Fragment {
     }
 
     /**
-     *
+     * setUpIntroCheckBoxes helper method helps with checking which checkbox has been
+     * pressed.
      */
     private void setUpIntroCheckBoxes() {
         spendingCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
