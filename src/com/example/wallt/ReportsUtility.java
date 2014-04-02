@@ -14,26 +14,26 @@ import com.parse.ParseUser;
  * @version 1.0
  */
 public class ReportsUtility {
-	
-	/**
+
+    /**
      * deposit : Instance Variable for a String.
      */
-	private String deposit = "deposit";
-	
-	/**
+    private String deposit = "deposit";
+
+    /**
      * withdraw : Instance Variable for a String.
      */
-	private String withdraw = "withdraws";
-	
-	/**
+    private String withdraw = "withdraws";
+
+    /**
      * space : Instance Variable for a String.
      */
-	private String space = ":    ";
-	
-	/**
+    private String space = ":    ";
+
+    /**
      * newLine : Instance Variable for a String.
      */
-	private String newLine = "\n";
+    private String newLine = "\n";
 
     /**
      * generateSpendingReport creates a report for spending.
