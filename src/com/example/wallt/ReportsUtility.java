@@ -23,7 +23,7 @@ public class ReportsUtility {
     /**
      * withdraw : Instance Variable for a String.
      */
-    private String withdraw = "withdraws";
+    private String withdraw = "withdraw";
 
     /**
      * space : Instance Variable for a String.
@@ -42,13 +42,15 @@ public class ReportsUtility {
      * @param to   : ending date of the report.
      * @return String of transactions and reasons.
      */
-    public String generateSpendingReport(Calendar from, Calendar to) {
+    public final String generateSpendingReport(final Calendar from,
+                 final Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
 
         HashMap<String, Double> map = new HashMap<String, Double>();
         if (list != null) {
             for (BankAccount b : list) {
-                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
+                ArrayList<Transactions> transactions = (
+                         ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -66,8 +68,10 @@ public class ReportsUtility {
             }
         }
         StringBuilder str = new StringBuilder();
-        String title = "Spending Category Report for " + ParseUser.getCurrentUser().getUsername();
-        String date = from.getTime().toString() + " - " + to.getTime().toString();
+        String title = "Spending Category Report for "
+                        + ParseUser.getCurrentUser().getUsername();
+        String date = from.getTime().toString()
+                      + " - " + to.getTime().toString();
         str.append(title + newLine);
         str.append(date + newLine);
         for (HashMap.Entry<String, Double> entry : map.entrySet()) {
@@ -85,13 +89,15 @@ public class ReportsUtility {
      * @param to   : ending date of the report.
      * @return String of transactions and reasons.
      */
-    public String generateIncomeReport(Calendar from, Calendar to) {
+    public final String generateIncomeReport(final Calendar from,
+                 final Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
 
         HashMap<String, Double> map = new HashMap<String, Double>();
         if (list != null) {
             for (BankAccount b : list) {
-                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
+                ArrayList<Transactions> transactions = (
+                       ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -109,8 +115,10 @@ public class ReportsUtility {
             }
         }
         StringBuilder str = new StringBuilder();
-        String title = "Income Category Report for " + ParseUser.getCurrentUser().getUsername();
-        String date = from.getTime().toString() + " - " + to.getTime().toString();
+        String title = "Income Category Report for "
+                       + ParseUser.getCurrentUser().getUsername();
+        String date = from.getTime().toString()
+                      + " - " + to.getTime().toString();
         str.append(title + newLine);
         str.append(date + newLine);
         for (HashMap.Entry<String, Double> entry : map.entrySet()) {
@@ -128,13 +136,15 @@ public class ReportsUtility {
      * @param to   : ending date of the report.
      * @return String of transactions and reasons.
      */
-    public String generateCashFlowReport(Calendar from, Calendar to) {
+    public final String generateCashFlowReport(final Calendar from,
+                 final Calendar to) {
         ArrayList<BankAccount> list2 = filteredBankAccounts(from, to);
         double income = 0;
         double expenses = 0;
         if (list2 != null) {
             for (BankAccount b : list2) {
-                ArrayList<Transactions> transactions = (ArrayList<Transactions>) b.getListTrans();
+                ArrayList<Transactions> transactions = (
+                      ArrayList<Transactions>) b.getListTrans();
                 for (Transactions t : transactions) {
                     String type = t.getType();
                     type = type.toLowerCase();
@@ -147,8 +157,10 @@ public class ReportsUtility {
             }
         }
         StringBuilder str = new StringBuilder();
-        String title = "Cash Flow Report for " + ParseUser.getCurrentUser().getUsername();
-        String date = from.getTime().toString() + " - " + to.getTime().toString();
+        String title = "Cash Flow Report for "
+                       + ParseUser.getCurrentUser().getUsername();
+        String date = from.getTime().toString()
+                      + " - " + to.getTime().toString();
         String inc = "Income : " + income;
         String exp = "Expenses : " + expenses;
         String flow = "Flow : " + (income - expenses);
@@ -161,17 +173,20 @@ public class ReportsUtility {
     }
 
     /**
-     * generateAccountListingReport method creates a report based on AccountList.
+     * generateAccountListingReport method create a report based on AccountList.
      *
      * @param from : starting date of the report.
      * @param to   : ending date of the report.
      * @return String of transactions and reasons.
      */
-    public String generateAccountListingReport(Calendar from, Calendar to) {
+    public final String generateAccountListingReport(final Calendar from,
+                 final Calendar to) {
         ArrayList<BankAccount> list = filteredBankAccounts(from, to);
         StringBuilder str = new StringBuilder();
-        String title = "Account Listings Report for " + ParseUser.getCurrentUser().getUsername();
-        String date = from.getTime().toString() + " - " + to.getTime().toString();
+        String title = "Account Listings Report for "
+                       + ParseUser.getCurrentUser().getUsername();
+        String date = from.getTime().toString()
+                      + " - " + to.getTime().toString();
         str.append(title + "\n");
         str.append(date + "\n");
         if (list != null) {
@@ -185,20 +200,24 @@ public class ReportsUtility {
     }
 
     /**
-     * generateTransactionHistory method creates a transaction history for an bank account.
+     * generateTransactionHistory method creates a
+     * transaction history for an bank account.
      *
      * @param account : Bank account object
      * @param from : starting date of the report.
      * @param to   : ending date of the report.
      * @return String of transactions and reasons.
      */
-    public String generateTransactionHistory(BankAccount account,
-            Calendar from, Calendar to) {
-        ArrayList<Transactions> initialList =  ServerUtility.getTransactions(account);
+    public final String generateTransactionHistory(final BankAccount account,
+            final Calendar from, final Calendar to) {
+        ArrayList<Transactions> initialList =
+                ServerUtility.getInstance().getTransactions(account);
         initialList = filterByDate(initialList, from, to);
         StringBuilder str = new StringBuilder();
-        String title = "Transaction History Report for " + account.getBankName();
-        String date = from.getTime().toString() + " - " + to.getTime().toString();
+        String title = "Transaction History Report for "
+                       + account.getBankName();
+        String date = from.getTime().toString()
+                      + " - " + to.getTime().toString();
         str.append(title + "\n");
         str.append(date + "\n");
         if (initialList != null) {
@@ -214,12 +233,15 @@ public class ReportsUtility {
      *
      * @param from : starting date of the report.
      * @param to   : ending date of the report.
-     * @return ArrayList<BankAccount> : list of bankaccounts with valid informations
+     * @return ArrayList<BankAccount> : list of
+     *                                  bankaccounts with valid informations
      */
-    private ArrayList<BankAccount> filteredBankAccounts(Calendar from, Calendar to) {
-        ArrayList<BankAccount> accounts = ServerUtility.getReportData();
+    private ArrayList<BankAccount> filteredBankAccounts(final Calendar from,
+            final Calendar to) {
+        ArrayList<BankAccount> accounts = ServerUtility.getInstance().getReportData();
         for (BankAccount b : accounts) {
-            ArrayList<Transactions> newList = filterByDate((ArrayList<Transactions>) b.getListTrans(), from, to);
+            ArrayList<Transactions> newList = filterByDate((
+                   ArrayList<Transactions>) b.getListTrans(), from, to);
             b.setListTrans(newList);
         }
         return accounts;
@@ -234,7 +256,8 @@ public class ReportsUtility {
      * @param to   : ending date of the report.
      * @return ArrayList<Transactions> : List of transactions.
      */
-    private ArrayList<Transactions> filterByDate(ArrayList<Transactions> list, Calendar from, Calendar to) {
+    private ArrayList<Transactions> filterByDate(final ArrayList<Transactions>
+            list, final Calendar from, final Calendar to) {
         ArrayList<Transactions> finalList = new ArrayList<Transactions>();
         for (Transactions t : list) {
             Calendar thisDate = t.getDate();

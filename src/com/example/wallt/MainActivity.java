@@ -32,7 +32,7 @@ public class MainActivity extends FragmentActivity {
     private ActionBar actionBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         PushService.setDefaultPushCallback(this, MainActivity.class);
         setContentView(R.layout.activity_main);
@@ -41,7 +41,7 @@ public class MainActivity extends FragmentActivity {
         tab.setOnPageChangeListener(
                 new ViewPager.SimpleOnPageChangeListener() {
                     @Override
-                    public void onPageSelected(int position) {
+                    public void onPageSelected(final int position) {
                         actionBar = getActionBar();
                         actionBar.setSelectedNavigationItem(position);
                     }
@@ -56,21 +56,25 @@ public class MainActivity extends FragmentActivity {
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
         ActionBar.TabListener tabListener = new ActionBar.TabListener() {
             @Override
-            public void onTabReselected(android.app.ActionBar.Tab ttb,
-                FragmentTransaction ft) {
+            public void onTabReselected(final android.app.ActionBar.Tab ttb,
+                final FragmentTransaction ft) {
             }
             @Override
-            public void onTabSelected(ActionBar.Tab ttb, FragmentTransaction ft) {
+            public void onTabSelected(final ActionBar.Tab ttb,
+                    final FragmentTransaction ft) {
                 tab.setCurrentItem(ttb.getPosition());
             }
             @Override
-            public void onTabUnselected(android.app.ActionBar.Tab ttb,
-                FragmentTransaction ft) {
+            public void onTabUnselected(final android.app.ActionBar.Tab ttb,
+                final FragmentTransaction ft) {
             }
         };
       //Add New Tab
-        actionBar.addTab(actionBar.newTab().setText("ACCOUNTS").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("REPORTS").setTabListener(tabListener));
-        actionBar.addTab(actionBar.newTab().setText("SETTINGS").setTabListener(tabListener));
+        actionBar.addTab(actionBar.newTab().setText("ACCOUNTS")
+                 .setTabListener(tabListener));
+        actionBar.addTab(actionBar.newTab().setText("REPORTS")
+                 .setTabListener(tabListener));
+        actionBar.addTab(actionBar.newTab().setText("SETTINGS")
+                 .setTabListener(tabListener));
     }
 }

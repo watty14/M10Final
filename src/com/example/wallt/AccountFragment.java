@@ -50,8 +50,8 @@ public class AccountFragment extends ListFragment {
     private static View accountView;
 
     @Override
-    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
-            final Bundle savedInstance) {
+    public final View onCreateView(final LayoutInflater inflater,
+            final ViewGroup container, final Bundle savedInstance) {
         accountView = inflater.inflate(R.layout.fragment_account,
                 container, false);
         mProgressBar = (ProgressBar) accountView.findViewById(
@@ -76,15 +76,14 @@ public class AccountFragment extends ListFragment {
     }
 
     @Override
-    public void onResume() {
+    public final void onResume() {
         super.onResume();
         new AsyncTaskGetAccounts().execute();
     }
 
     @Override
-    public void onListItemClick(final ListView list, 
-    		final View view, final int position, 
-    		final long itemID) {
+    public final void onListItemClick(final ListView list,
+            final View view, final int position, final long itemID) {
         final BankAccount desired = accounts.get(position);
         final Intent intent = new Intent(accountView.getContext(),
                 TransactionActivity.class);
@@ -104,7 +103,7 @@ public class AccountFragment extends ListFragment {
         @Override
         protected ArrayList<BankAccount> doInBackground(final Void... params) {
             publishProgress();
-            return ServerUtility.getBankAccounts();
+            return ServerUtility.getInstance().getBankAccounts();
         }
 
         @Override

@@ -79,7 +79,7 @@ public class BankAccount implements Parcelable {
      * Getter for transactions.
      * @return transactions.
      */
-    public List<Transactions> getListTrans() {
+    public final List<Transactions> getListTrans() {
         return listTrans;
     }
 
@@ -87,7 +87,7 @@ public class BankAccount implements Parcelable {
      * Setter for transactions.
      * @param listTrans1 to be set
      */
-    public void setListTrans(final List<Transactions> listTrans1) {
+    public final void setListTrans(final List<Transactions> listTrans1) {
         this.listTrans = (ArrayList<Transactions>) listTrans1;
     }
 
@@ -95,7 +95,7 @@ public class BankAccount implements Parcelable {
      * Setter for object id.
      * @param objectId1 Id to be set.
      */
-    public void setObjectId(final String objectId1) {
+    public final void setObjectId(final String objectId1) {
         this.objectId = objectId1;
     }
 
@@ -103,7 +103,7 @@ public class BankAccount implements Parcelable {
      * Setter for account number.
      * @param accountNumber1 Number to be set.
      */
-    public void setAccountNumber(final String accountNumber1) {
+    public final void setAccountNumber(final String accountNumber1) {
         this.accountNumber = accountNumber1;
     }
 
@@ -111,7 +111,7 @@ public class BankAccount implements Parcelable {
      * Setter for bank name.
      * @param bankName1 Banke name to be set.
      */
-    public void setBankName(final String bankName1) {
+    public final void setBankName(final String bankName1) {
         this.bankName = bankName1;
     }
 
@@ -119,8 +119,8 @@ public class BankAccount implements Parcelable {
      * Setter for transactions.
      * @param transactions1 Transaction to be set.
      */
-    public void setTransactions(final String[] transactions1) {
-        System.arraycopy(transactions1, 0, transactions, 0, transactions1.length);
+    public final void setTransactions(final String[] transactions1) {
+        transactions = transactions1;
     }
 
 
@@ -141,7 +141,7 @@ public class BankAccount implements Parcelable {
         this.balance = balance1;
         this.bankName = bankName1;
         this.objectId = objectId1;
-        System.arraycopy(transactions1, 0, transactions, 0, transactions1.length);
+        transactions = transactions1;
     }
 
     /**
@@ -149,10 +149,8 @@ public class BankAccount implements Parcelable {
      *
      * @return transactions
      */
-    public String[] getTransactions() {
-        String[] result = null;
-        System.arraycopy(transactions, 0, result, 0, transactions.length);
-        return result;
+    public final String[] getTransactions() {
+        return transactions;
     }
 
     /**
@@ -160,7 +158,7 @@ public class BankAccount implements Parcelable {
      *
      * @return account number
      */
-    public String getAccountNumber() {
+    public final String getAccountNumber() {
         return accountNumber;
     }
 
@@ -169,7 +167,7 @@ public class BankAccount implements Parcelable {
      *
      * @return objectId
      */
-    public String getObjectId() {
+    public final String getObjectId() {
         return objectId;
     }
 
@@ -178,7 +176,7 @@ public class BankAccount implements Parcelable {
      *
      * @return balance
      */
-    public double getBalance() {
+    public final double getBalance() {
         return balance;
     }
 
@@ -187,7 +185,7 @@ public class BankAccount implements Parcelable {
      *
      * @return bankNAme
      */
-    public String getBankName() {
+    public final String getBankName() {
         return bankName;
     }
 
@@ -196,7 +194,7 @@ public class BankAccount implements Parcelable {
      *
      * @param amount Current balance
      */
-    public void setBalance(final double amount) {
+    public final void setBalance(final double amount) {
         balance = amount;
     }
 
@@ -205,7 +203,7 @@ public class BankAccount implements Parcelable {
      *
      * @return String
      */
-    public String toString() {
+    public final String toString() {
         return "Account Number: " + accountNumber
                 + " Balance: " + balance
                 + " Bank Name: " + bankName;
@@ -225,13 +223,13 @@ public class BankAccount implements Parcelable {
     }
 
     @Override
-    public int describeContents() {
+    public final int describeContents() {
         // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public void writeToParcel(final Parcel dest,
+    public final void writeToParcel(final Parcel dest,
             final int flags) {
         dest.writeString(objectId);
         dest.writeString(accountNumber);

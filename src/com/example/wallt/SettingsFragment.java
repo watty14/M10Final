@@ -29,16 +29,19 @@ public class SettingsFragment extends ListFragment {
     private View account;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        account = inflater.inflate(R.layout.fragment_settings, container, false);
+    public final View onCreateView(final LayoutInflater inflater,
+                 final ViewGroup container, final Bundle savedInstanceState) {
+        account = inflater.inflate(R.layout.fragment_settings, container,
+                  false);
         mLogout = (Button) account.findViewById(R.id.logout_button);
         mLogout.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(final View view) {
                 ParseUser.logOut();
-                Intent intents = new Intent(account.getContext(), LoginOrSignUpActivity.class);
-                intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                Intent intents = new Intent(account.getContext(),
+                                 LoginOrSignUpActivity.class);
+                intents.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                                 | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intents);
             }
         });

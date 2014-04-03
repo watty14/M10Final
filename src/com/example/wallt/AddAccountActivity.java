@@ -1,7 +1,5 @@
 package com.example.wallt;
 
-
-
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
@@ -43,14 +41,24 @@ public class AddAccountActivity extends Activity {
      * Instance of the progress bar.
      */
     private static ProgressBar mProgressBar;
-    
+
+    /**
+     * LENGTH2: final instance variable of int.
+     */
+    public static final int LENGTH2 = 1000;
+
+    /**
+     * LENGTH3: final instance variable of int.
+     */
+    public static final int LENGTH3 = 100;
+
     /**
      * Empty string.
      */
     private static String empty = "";
 
     @Override
-    protected void onCreate(final Bundle savedInstance) {
+    protected final void onCreate(final Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_add_account);
         mBankNameField = (EditText) findViewById(R.id.bankname_field);
@@ -62,10 +70,12 @@ public class AddAccountActivity extends Activity {
         mCreateAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final String bankName = (String) mBankNameField.getText().toString();
-                final String accountNumber = mAccountNumber.getText().toString();
+                final String bankName = (String)
+                      mBankNameField.getText().toString();
+                final String accountNumber =
+                      mAccountNumber.getText().toString();
                 final String balance = mBalanceField.getText().toString();
-                
+
                 if (empty.equals(bankName) || empty.equals(accountNumber)
                     || empty.equals(balance)) {
                     Toast.makeText(AddAccountActivity.this, "Invalid Input",
@@ -94,7 +104,7 @@ public class AddAccountActivity extends Activity {
         protected Boolean doInBackground(final String... params) {
             final BankAccount account = new BankAccount(null, params[1],
                     Integer.parseInt(params[2]), params[0], null);
-            return ServerUtility.createNewBankAccount(account);
+            return ServerUtility.getInstance().createNewBankAccount(account);
         }
 
         @Override
@@ -109,11 +119,12 @@ public class AddAccountActivity extends Activity {
                     public void run() {
                         try {
                             int waited = 0;
-                            while (waited < 1000) {
-                                sleep(100);
-                                waited += 100;
+                            while (waited < LENGTH2) {
+                                sleep(LENGTH3);
+                                waited += LENGTH3;
                             }
                         } catch (InterruptedException e) {
+                            e.printStackTrace();
                             //do nothing
                         } finally {
                             finish();

@@ -11,96 +11,96 @@ import java.util.Calendar;
 public class Transactions {
 
     /**
-     *
+     * amount: double instance variable.
      */
     private double amount;
 
     /**
-     *
+     * type: String instance variable.
      */
     private String type;
 
     /**
-     *
+     * calendar: instance variable of Calendar.
      */
     private Calendar calendar;
 
     /**
-     *
+     * reason: String instance variable.
      */
     private String reason;
 
     /**
-     *
-     *
-     * @param amount
-     * @param type
+     * Transactions class.
+     * constructor for transactions class.
+     * @param amont double
+     * @param tp String
      */
-    public Transactions(double amount, String type) {
-        this.amount = amount;
-        this.type = type;
+    public Transactions(final double amont, final String tp) {
+        this.amount = amont;
+        this.type = tp;
     }
 
     /**
-     *
-     *
-     * @param reason
+     * setReason class.
+     * sets the reason for the transaction.
+     * @param rsn String
      */
-    public void setReason(String reason) {
-        this.reason = reason;
+    public final void setReason(final String rsn) {
+        this.reason = rsn;
     }
 
     /**
-     *
-     *
-     * @return
+     * getReason class.
+     * gets the reason for the transaction.
+     * @return reason String
      */
-    public String getReason() {
+    public final String getReason() {
         return reason;
     }
 
     /**
-     *
-     *
-     * @param calendar
+     * setDate class.
+     * sets the date for the transaction.
+     * @param clndar Calendar
      */
-    public void setDate(Calendar calendar) {
-        this.calendar = calendar;
+    public final void setDate(final Calendar clndar) {
+        this.calendar = clndar;
     }
 
     /**
-     *
-     *
-     * @return
+     * getDate class.
+     * gets the date for the transaction.
+     * @return calendar
      */
-    public Calendar getDate() {
+    public final Calendar getDate() {
         return calendar;
     }
 
     /**
-     *
-     *
-     * @return
+     * getType method.
+     * gets the type of transaction.
+     * @return type
      */
-    public String getType() {
+    public final String getType() {
         return type;
     }
 
     /**
-     *
-     *
-     * @return
+     * getAmount method.
+     * gets the amount of the transaction.
+     * @return amount
      */
-    public double getAmount() {
+    public final double getAmount() {
         return amount;
     }
 
     /**
-     *
-     *
-     * @return
+     * toString.
+     * prints out the amount, type, and reason.
+     * @return amount, type, and reason
      */
-    public String toString() {
+    public final String toString() {
         return "Amount: " + amount
                 + "    Type: " + type
                 + "    Reason: " + reason;

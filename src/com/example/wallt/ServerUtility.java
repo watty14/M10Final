@@ -46,79 +46,79 @@ public class ServerUtility {
     //Table names
 
     /**
-     *
+     * TABLE_USER variable.
      */
     public static final String TABLE_USER = "User";
 
     /**
-     *
+     * TABLE_OWNER variable.
      */
     public static final String TABLE_OWNER = "AccountOwners";
 
     /**
-     *
+     * TABLE_BANKACCOUNT variable.
      */
     public static final String TABLE_BANKACCOUNT = "BankAccount";
 
     /**
-     *
+     * TABLE_TRANSACTIONS variable.
      */
     public static final String TABLE_TRANSACTIONS = "Transactions";
 
     //Column names
 
     /**
-     *
+     * COLUMN_ID variable.
      */
     public static final String COLUMN_ID = "objectId";
 
     /**
-     *
+     * COLUMN_USERNAME variable.
      */
     public static final String COLUMN_USERNAME = "username";
 
     /**
-     *
+     * COLUMN_BANKACCOUNTS variable.
      */
     public static final String COLUMN_BANKACCOUNTS = "bankaccounts";
 
     /**
-     *
+     * COLUMN_BANKNAME variable.
      */
     public static final String COLUMN_BANKNAME = "bankname";
 
     /**
-     *
+     * COLUMN_ACCOUNTNUMBER variable.
      */
     public static final String COLUMN_ACCOUNTNUMBER = "accountnumber";
 
     /**
-     *
+     * COLUMN_BALANCE variable.
      */
     public static final String COLUMN_BALANCE = "balance";
 
     /**
-     *
+     * COLUMN_TRANSACTIONS variable.
      */
     public static final String COLUMN_TRANSACTIONS = "transactions";
 
     /**
-     *
+     * COLUMN_AMOUNT variable.
      */
     public static final String COLUMN_AMOUNT = "amount";
 
     /**
-     *
+     * COLUMN_TRANSACTIONTYPE variable.
      */
     public static final String COLUMN_TRANSACTIONTYPE = "transactiontype";
 
     /**
-     *
+     * COLUMN_DATE variable.
      */
     public static final String COLUMN_DATE = "createdAt";
 
     /**
-     *
+     * COLUMN_TRANSACTIONREASON variable.
      */
     public static final String COLUMN_TRANSACTIONREASON = "reason";
 

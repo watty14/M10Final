@@ -74,7 +74,7 @@ public class GeneratedReportActivity extends Activity {
     private static ProgressBar mProgressBar;
 
     @Override
-    protected void onCreate(final Bundle savedInstance) {
+    protected final void onCreate(final Bundle savedInstance) {
         super.onCreate(savedInstance);
         setContentView(R.layout.activity_generated_report);
         reportText = (TextView) findViewById(R.id.reportText);

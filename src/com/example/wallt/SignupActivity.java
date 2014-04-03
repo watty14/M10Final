@@ -12,7 +12,8 @@ import android.widget.Toast;
 
 
 /**
- *
+ * SignupActivity is an activity for login on
+ * MainActivity.
  *
  * @author Thomas Harris (tharris7@gatech.edu)
  * @version 1.0
@@ -20,27 +21,27 @@ import android.widget.Toast;
 public class SignupActivity extends Activity {
 
     /**
-     *
+     * mUsernameField: Instance variable of EditText.
      */
     private EditText mUsernameField;
 
     /**
-     *
+     * mPasswordField: Instance variable of EditText.
      */
     private EditText mPasswordField;
 
     /**
-     *
+     * mSignupButton: Instance variable of Button.
      */
     private Button mSignupButton;
 
     /**
-     *
+     * mProgressBar: Instance variable of ProgressBar.
      */
     private ProgressBar mProgressBar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected final void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
         mUsernameField = (EditText) findViewById(R.id.username_field);
@@ -50,7 +51,7 @@ public class SignupActivity extends Activity {
 
         mSignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(final View v) {
 
 
                 String username = mUsernameField.getText().toString();
@@ -68,7 +69,7 @@ public class SignupActivity extends Activity {
     }
 
     /**
-     *
+     * Class that logs the user in.
      *
      * @author Thomas Harris (tharris7@gatech.edu)
      * @version 1.0
@@ -76,22 +77,24 @@ public class SignupActivity extends Activity {
     private class AsyncTaskLogInUser extends AsyncTask<String, Void, Boolean> {
 
         @Override
-        protected Boolean doInBackground(String... params) {
-            return ServerUtility.signUpUser(params[0], params[1]);
+        protected Boolean doInBackground(final String... params) {
+            return ServerUtility.getInstance().signUpUser(params[0], params[1]);
         }
 
         @Override
-        protected void onPostExecute(Boolean result) {
+        protected void onPostExecute(final Boolean result) {
             super.onPostExecute(result);
             if (result) {
                 Intent i = new Intent(SignupActivity.this, MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                           | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(i);
             } else {
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mSignupButton.setVisibility(View.VISIBLE);
                 mPasswordField.setText("");
-                Toast.makeText(SignupActivity.this, "Sign up failed! Try again.",
+                Toast.makeText(SignupActivity.this,
+                        "Sign up failed! Try again.",
                         Toast.LENGTH_LONG).show();
             }
         }

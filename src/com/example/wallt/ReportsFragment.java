@@ -24,7 +24,7 @@ public class ReportsFragment extends Fragment {
     /**
      * checklistValues: Instance variable of Integer array.
      */
-    private int[] checklistValues = new int[4];
+    private int[] checklistValues = new int[MAGIC_NUMBER2];
 
     /**
      * spendingCheckBox: Instance variable of CheckBox.
@@ -66,14 +66,27 @@ public class ReportsFragment extends Fragment {
      */
     private View windows;
 
+    /**
+     * windows: Instance variable of View.
+     */
+    public static final int MAGIC_NUMBER = 3;
+
+    /**
+     * windows: Instance variable of View.
+     */
+    public static final int MAGIC_NUMBER2 = 4;
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public final View onCreateView(final LayoutInflater inflater,
+                 final ViewGroup container, final Bundle savedInstanceState) {
         windows = inflater.inflate(R.layout.fragment_reports, container, false);
-        spendingCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxSpending);
+        spendingCheckBox = (CheckBox) windows.findViewById(
+                           R.id.checkBoxSpending);
         incomeCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxIncome);
-        cashflowCheckBox = (CheckBox) windows.findViewById(R.id.checkBoxCashFlow);
-        accountlistingCheckBox = (CheckBox) windows.findViewById(R.id.checkAccountsListing);
+        cashflowCheckBox = (CheckBox) windows.findViewById(
+                           R.id.checkBoxCashFlow);
+        accountlistingCheckBox = (CheckBox) windows.findViewById(
+                                 R.id.checkAccountsListing);
         accountlistingCheckBox.setChecked(true);
 
         setUpIntroCheckBoxes();
@@ -93,7 +106,7 @@ public class ReportsFragment extends Fragment {
      */
     private void setButtonOnClickListener() {
         reportButton.setOnClickListener(new OnClickListener() {
-            public void onClick(View arg0) {
+            public void onClick(final View arg0) {
                 int fromMonth = fromDate.getMonth();
                 int fromDay = fromDate.getDayOfMonth();
                 int fromYear = fromDate.getYear();
@@ -110,7 +123,8 @@ public class ReportsFragment extends Fragment {
                 } else if (incomeCheckBox.isChecked()) {
                     type = "income";
                 }
-                Intent i = new Intent(windows.getContext(), GeneratedReportActivity.class);
+                Intent i = new Intent(windows.getContext(),
+                           GeneratedReportActivity.class);
                 i.putExtra("FROMMONTH", fromMonth);
                 i.putExtra("FROMDAY", fromDay);
                 i.putExtra("FROMYEAR", fromYear);
@@ -124,17 +138,24 @@ public class ReportsFragment extends Fragment {
     }
 
     /**
-     * setUpIntroCheckBoxes helper method helps with checking which checkbox has been
+     * setUpIntroCheckBoxes helper method helps with
+     * checking which checkbox has been.
      * pressed.
      */
     private void setUpIntroCheckBoxes() {
-        spendingCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+        spendingCheckBox.setOnCheckedChangeListener(
+               new CheckBox.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+            public void onCheckedChanged(final CompoundButton buttonView,
+                    final boolean isChecked) {
                 // TODO Auto-generated method stub
-                checklistValues[0] = (spendingCheckBox.isChecked()) ? 1 : 0;
+                if (spendingCheckBox.isChecked()) {
+                    checklistValues[0] = 1;
+                } else {
+                    checklistValues[0] = 0;
+                }
+
                 if (spendingCheckBox.isChecked()) {
                     cashflowCheckBox.setChecked(false);
                     accountlistingCheckBox.setChecked(false);
@@ -144,13 +165,18 @@ public class ReportsFragment extends Fragment {
 
         });
 
-        incomeCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+        incomeCheckBox.setOnCheckedChangeListener(
+                new CheckBox.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+            public void onCheckedChanged(final CompoundButton buttonView,
+                    final boolean isChecked) {
                 // TODO Auto-generated method stub
-                checklistValues[1] = (incomeCheckBox.isChecked()) ? 1 : 0;
+                if (spendingCheckBox.isChecked()) {
+                    checklistValues[1] = 1;
+                } else {
+                    checklistValues[1] = 0;
+                }
                 if (incomeCheckBox.isChecked()) {
                     spendingCheckBox.setChecked(false);
                     cashflowCheckBox.setChecked(false);
@@ -160,13 +186,18 @@ public class ReportsFragment extends Fragment {
 
         });
 
-        cashflowCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+        cashflowCheckBox.setOnCheckedChangeListener(
+                 new CheckBox.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+            public void onCheckedChanged(final CompoundButton buttonView,
+                    final boolean isChecked) {
                 // TODO Auto-generated method stub
-                checklistValues[2] = (cashflowCheckBox.isChecked()) ? 1 : 0;
+                if (spendingCheckBox.isChecked()) {
+                    checklistValues[2] = 1;
+                } else {
+                    checklistValues[2] = 0;
+                }
                 if (cashflowCheckBox.isChecked()) {
                     spendingCheckBox.setChecked(false);
                     accountlistingCheckBox.setChecked(false);
@@ -176,13 +207,18 @@ public class ReportsFragment extends Fragment {
 
         });
 
-        accountlistingCheckBox.setOnCheckedChangeListener(new CheckBox.OnCheckedChangeListener() {
+        accountlistingCheckBox.setOnCheckedChangeListener(
+               new CheckBox.OnCheckedChangeListener() {
 
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
+            public void onCheckedChanged(final CompoundButton buttonView,
+                    final boolean isChecked) {
                 // TODO Auto-generated method stub
-                checklistValues[3] = (accountlistingCheckBox.isChecked()) ? 1 : 0;
+                if (spendingCheckBox.isChecked()) {
+                    checklistValues[MAGIC_NUMBER] = 1;
+                } else {
+                    checklistValues[MAGIC_NUMBER] = 0;
+                }
                 if (accountlistingCheckBox.isChecked()) {
                     spendingCheckBox.setChecked(false);
                     cashflowCheckBox.setChecked(false);
